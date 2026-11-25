@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer({ isDarkMode }) {
   return (
-    <footer className={`mt-8 pt-4 pb-6 flex flex-col sm:flex-row items-center justify-between text-xs gap-2 border-t transition-colors ${
+    <footer className={`mt-6 sm:mt-8 pt-4 pb-6 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left text-xs gap-2 border-t transition-colors ${
       isDarkMode 
         ? 'border-[#142854] text-slate-400' 
         : 'border-slate-200 text-slate-500'

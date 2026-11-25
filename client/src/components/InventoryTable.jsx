@@ -121,34 +121,34 @@ export default function InventoryTable({
   return (
     <div className={`rounded-2xl border shadow-sm transition-colors ${cardBg}`}>
       {/* Header & Primary Filter Bar */}
-      <div className={`p-5 border-b flex flex-col gap-4 ${
+      <div className={`p-4 sm:p-5 border-b flex flex-col gap-3.5 sm:gap-4 ${
         isDarkMode ? 'border-[#182744]' : 'border-slate-100'
       }`}>
-        <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
+        <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-3.5 sm:gap-4">
           {/* Title */}
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-500 border border-cyan-500/30">
+            <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-500 border border-cyan-500/30 shrink-0">
               <Package className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold tracking-wide">Inventario de Equipos</h3>
+              <h3 className="text-sm sm:text-base font-bold tracking-wide">Inventario de Equipos</h3>
               <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                 {equipos.length} {equipos.length === 1 ? 'equipo encontrado' : 'equipos registrados'}
               </p>
             </div>
           </div>
 
-          {/* Primary Filters Group */}
-          <div className="flex flex-wrap items-center gap-2.5 w-full xl:w-auto">
+          {/* Primary Filters Group (Fully responsive grid on mobile, inline flex on xl) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-center gap-2.5 w-full xl:w-auto">
             {/* General Search */}
-            <div className="relative min-w-[180px] flex-1 sm:flex-initial">
+            <div className="relative sm:col-span-2 lg:w-48">
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={filterSearch}
                 onChange={(e) => setFilterSearch(e.target.value)}
                 placeholder="Búsqueda rápida..."
-                className={`w-full rounded-xl border pl-9 pr-7 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500 ${inputBg}`}
+                className={`w-full rounded-xl border pl-9 pr-7 py-2 sm:py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500 ${inputBg}`}
               />
               {filterSearch && (
                 <button
@@ -163,7 +163,7 @@ export default function InventoryTable({
             </div>
 
             {/* Marcas Dropdown */}
-            <div className="min-w-[155px]">
+            <div className="w-full lg:w-40">
               <SearchableSelect
                 compact
                 isDarkMode={isDarkMode}
@@ -178,7 +178,7 @@ export default function InventoryTable({
             </div>
 
             {/* Estados Dropdown */}
-            <div className="min-w-[150px]">
+            <div className="w-full lg:w-40">
               <SearchableSelect
                 compact
                 isDarkMode={isDarkMode}
@@ -192,80 +192,79 @@ export default function InventoryTable({
             </div>
 
             {/* Date range */}
-            <div className={`flex items-center gap-1.5 rounded-xl px-2.5 py-1 text-xs border ${inputBg}`}>
+            <div className={`sm:col-span-2 lg:col-span-1 flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 sm:py-1 text-xs border min-w-0 ${inputBg}`}>
               <Calendar className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
               <input
                 type="date"
                 value={fechaDesde}
                 onChange={(e) => setFechaDesde(e.target.value)}
                 title="Fecha inicial"
-                className="bg-transparent text-[11px] focus:outline-none cursor-pointer"
+                className="bg-transparent text-[11px] focus:outline-none cursor-pointer flex-1 min-w-0"
               />
-              <span className="text-slate-400">-</span>
+              <span className="text-slate-400 shrink-0">-</span>
               <input
                 type="date"
                 value={fechaHasta}
                 onChange={(e) => setFechaHasta(e.target.value)}
                 title="Fecha final"
-                className="bg-transparent text-[11px] focus:outline-none cursor-pointer"
+                className="bg-transparent text-[11px] focus:outline-none cursor-pointer flex-1 min-w-0"
               />
             </div>
 
-            {/* Toggle Advanced Filters */}
-            <button
-              type="button"
-              onClick={() => setShowAdvanced((prev) => !prev)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
-                showAdvanced || advancedActiveCount > 0
-                  ? isDarkMode
-                    ? 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300'
-                    : 'bg-sky-50 border-sky-300 text-sky-700'
-                  : isDarkMode
-                    ? 'bg-[#111f38] border-[#21355b] text-slate-300 hover:border-cyan-500/50'
-                    : 'bg-[#f8fafc] border-slate-200 text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5" />
-              <span>Más filtros</span>
-              {advancedActiveCount > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-cyan-500 text-white">
-                  {advancedActiveCount}
-                </span>
-              )}
-            </button>
-
-            {/* Reset Filters */}
-            {hasAnyFilter && (
+            {/* Actions row: Más filtros, Reset, Filtrar */}
+            <div className="sm:col-span-2 lg:col-span-1 flex items-center gap-2">
               <button
                 type="button"
-                onClick={onResetFilters}
-                title="Restablecer todos los filtros"
-                className={`p-1.5 rounded-xl transition-colors ${
-                  isDarkMode ? 'bg-slate-800 text-slate-300 hover:text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                onClick={() => setShowAdvanced((prev) => !prev)}
+                className={`flex-1 lg:flex-initial flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
+                  showAdvanced || advancedActiveCount > 0
+                    ? isDarkMode
+                      ? 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300'
+                      : 'bg-sky-50 border-sky-300 text-sky-700'
+                    : isDarkMode
+                      ? 'bg-[#111f38] border-[#21355b] text-slate-300 hover:border-cyan-500/50'
+                      : 'bg-[#f8fafc] border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
-                <RotateCcw className="w-4 h-4" />
+                <SlidersHorizontal className="w-3.5 h-3.5" />
+                <span>Más filtros</span>
+                {advancedActiveCount > 0 && (
+                  <span className="px-1.5 rounded-full text-[10px] font-bold bg-cyan-500 text-white">
+                    {advancedActiveCount}
+                  </span>
+                )}
               </button>
-            )}
 
-            {/* Filtrar Button */}
-            <button
-              type="button"
-              onClick={() => onApplyFilters && onApplyFilters()}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:brightness-110 text-white font-bold text-xs transition-all shadow-md shadow-sky-500/20"
-            >
-              <Filter className="w-3.5 h-3.5" />
-              <span>Filtrar</span>
-            </button>
+              {hasAnyFilter && (
+                <button
+                  type="button"
+                  onClick={onResetFilters}
+                  title="Restablecer todos los filtros"
+                  className={`p-2 sm:p-1.5 rounded-xl transition-colors shrink-0 ${
+                    isDarkMode ? 'bg-slate-800 text-slate-300 hover:text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  }`}
+                >
+                  <RotateCcw className="w-4 h-4" />
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={() => onApplyFilters && onApplyFilters()}
+                className="flex-1 lg:flex-initial flex items-center justify-center gap-1.5 px-4 py-2 sm:py-1.5 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:brightness-110 text-white font-bold text-xs transition-all shadow-md shadow-sky-500/20"
+              >
+                <Filter className="w-3.5 h-3.5" />
+                <span>Filtrar</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Advanced Multi-Parameter Filter Panel (Cliente, Cédula, Equipo, Modelo, Accesorios, Daño) */}
+        {/* Advanced Multi-Parameter Filter Panel */}
         {showAdvanced && (
           <div className={`pt-4 border-t grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 ${
             isDarkMode ? 'border-[#182744]' : 'border-slate-100'
           }`}>
-            {/* Cliente */}
             <div>
               <label className={`block text-[10px] font-bold uppercase tracking-wider mb-1 ${
                 isDarkMode ? 'text-slate-400' : 'text-slate-500'
@@ -292,7 +291,6 @@ export default function InventoryTable({
               </div>
             </div>
 
-            {/* Cédula */}
             <div>
               <label className={`block text-[10px] font-bold uppercase tracking-wider mb-1 ${
                 isDarkMode ? 'text-slate-400' : 'text-slate-500'
@@ -319,7 +317,6 @@ export default function InventoryTable({
               </div>
             </div>
 
-            {/* Tipo de Equipo */}
             <div>
               <label className={`block text-[10px] font-bold uppercase tracking-wider mb-1 ${
                 isDarkMode ? 'text-slate-400' : 'text-slate-500'
@@ -339,7 +336,6 @@ export default function InventoryTable({
               />
             </div>
 
-            {/* Modelo */}
             <div>
               <label className={`block text-[10px] font-bold uppercase tracking-wider mb-1 ${
                 isDarkMode ? 'text-slate-400' : 'text-slate-500'
@@ -366,7 +362,6 @@ export default function InventoryTable({
               </div>
             </div>
 
-            {/* Accesorios */}
             <div>
               <label className={`block text-[10px] font-bold uppercase tracking-wider mb-1 ${
                 isDarkMode ? 'text-slate-400' : 'text-slate-500'
@@ -386,7 +381,6 @@ export default function InventoryTable({
               />
             </div>
 
-            {/* Daño */}
             <div>
               <label className={`block text-[10px] font-bold uppercase tracking-wider mb-1 ${
                 isDarkMode ? 'text-slate-400' : 'text-slate-500'
@@ -409,8 +403,103 @@ export default function InventoryTable({
         )}
       </div>
 
-      {/* Table (Responsive) */}
-      <div className="overflow-x-auto rounded-b-2xl">
+      {/* =====================================================================
+          MOBILE & TABLET CARD LIST (< xl / < 1280px) — 1 col en celular, 2 cols en tablet
+         ===================================================================== */}
+      <div className="xl:hidden">
+        {equipos.length === 0 ? (
+          <div className="py-10 px-4 text-center text-slate-400">
+            <Package className="w-8 h-8 text-slate-400 stroke-1 mx-auto mb-2" />
+            <p className="text-xs font-medium">No se encontraron equipos con los filtros seleccionados.</p>
+          </div>
+        ) : (
+          <div className="p-3 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-3.5">
+            {equipos.map((item) => (
+              <div
+                key={item.id}
+                className={`rounded-xl border p-3.5 flex flex-col justify-between gap-2.5 text-xs ${
+                  isDarkMode
+                    ? 'bg-[#0f1d38] border-[#1b2f57]'
+                    : 'bg-[#f8fafc] border-slate-200'
+                }`}
+              >
+                <div className="space-y-2.5">
+                  {/* Fila superior: Cliente + Cédula + Estado */}
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <p className={`font-bold text-sm leading-tight truncate ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                        {item.cliente_nombre}
+                      </p>
+                      <p className={`text-[11px] font-mono mt-0.5 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                        CC {item.cliente_cedula} · {item.fecha_ingreso}
+                      </p>
+                    </div>
+                    <span className={`inline-block whitespace-nowrap shrink-0 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${getBadgeStyle(item.estado)}`}>
+                      {item.estado}
+                    </span>
+                  </div>
+
+                  {/* Detalles técnicos */}
+                  <div className={`grid grid-cols-2 gap-2 pt-2 border-t text-[11px] ${
+                    isDarkMode ? 'border-[#1b2f57]' : 'border-slate-200/80'
+                  }`}>
+                    <div>
+                      <span className="text-slate-400 block text-[10px]">Equipo y Marca</span>
+                      <strong className={isDarkMode ? 'text-cyan-300' : 'text-cyan-700'}>
+                        {item.tipo_equipo} · {item.marca}
+                      </strong>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 block text-[10px]">Modelo</span>
+                      <span className={isDarkMode ? 'text-slate-200' : 'text-slate-700'}>{item.modelo || '-'}</span>
+                    </div>
+                    <div className="col-span-2">
+                      <span className="text-slate-400 block text-[10px]">Daño reportado</span>
+                      <span className={`font-medium ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>{item.dano_reportado}</span>
+                    </div>
+                    <div className="col-span-2">
+                      <span className="text-slate-400 block text-[10px]">Accesorios</span>
+                      <span className={isDarkMode ? 'text-slate-300' : 'text-slate-600'}>{item.accesorios || 'No aplica'}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Botones táctiles de acción */}
+                <div className={`flex items-center gap-2 pt-2.5 border-t ${
+                  isDarkMode ? 'border-[#1b2f57]' : 'border-slate-200/80'
+                }`}>
+                  <button
+                    onClick={() => onViewEquipo(item)}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-blue-500/15 text-blue-500 font-bold text-[11px]"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>Ticket</span>
+                  </button>
+                  <button
+                    onClick={() => onEditEquipo(item)}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-cyan-500/15 text-cyan-600 font-bold text-[11px]"
+                  >
+                    <Edit3 className="w-3.5 h-3.5" />
+                    <span>Editar</span>
+                  </button>
+                  <button
+                    onClick={() => onDeleteEquipo(item.id)}
+                    aria-label="Eliminar equipo"
+                    className="p-2 rounded-lg bg-red-500/15 text-red-500"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* =====================================================================
+          DESKTOP TABLE VIEW (xl+ / ≥ 1280px)
+         ===================================================================== */}
+      <div className="hidden xl:block overflow-x-auto rounded-b-2xl">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
             <tr className={`border-b font-semibold uppercase tracking-wider text-[11px] ${headerBg}`}>

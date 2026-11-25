@@ -94,36 +94,36 @@ export default function KpiCards({ stats, isDarkMode }) {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 mb-5 sm:mb-6">
       {kpis.map((kpi, idx) => {
         const Icon = kpi.icon;
         const theme = isDarkMode ? kpi.dark : kpi.light;
         return (
           <div
             key={idx}
-            className={`relative overflow-hidden rounded-2xl border p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md ${theme.bg}`}
+            className={`relative overflow-hidden rounded-2xl border p-3.5 sm:p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md ${theme.bg}`}
           >
-            <div className="flex items-start justify-between">
-              <div>
-                <p className={`text-xs font-semibold ${theme.textTitle}`}>{kpi.title}</p>
-                <h3 className={`text-3xl font-black mt-1.5 tracking-tight ${theme.textValue}`}>
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0">
+                <p className={`text-[11px] sm:text-xs font-semibold truncate ${theme.textTitle}`}>{kpi.title}</p>
+                <h3 className={`text-2xl sm:text-3xl font-black mt-1 sm:mt-1.5 tracking-tight ${theme.textValue}`}>
                   {kpi.value}
                 </h3>
               </div>
-              <div className={`p-2.5 rounded-xl ${theme.iconBg}`}>
-                <Icon className="w-5 h-5" />
+              <div className={`p-2 sm:p-2.5 rounded-xl shrink-0 ${theme.iconBg}`}>
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </div>
 
-            {/* Bottom Trend & Wave (Exact to Image 1) */}
-            <div className="flex items-center justify-between mt-4">
-              <span className={`inline-flex items-center gap-0.5 text-xs font-bold px-2 py-0.5 rounded-full ${theme.badge}`}>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+            {/* Bottom Trend & Wave */}
+            <div className="flex items-center justify-between mt-3 sm:mt-4 gap-1">
+              <span className={`inline-flex items-center gap-0.5 text-[10px] sm:text-xs font-bold px-1.5 sm:px-2 py-0.5 rounded-full ${theme.badge}`}>
+                <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 {kpi.change}
               </span>
 
               {/* Sparkline wave */}
-              <svg className="w-24 h-7" viewBox="0 0 100 24" fill="none">
+              <svg className="w-14 sm:w-24 h-5 sm:h-7 shrink-0" viewBox="0 0 100 24" fill="none">
                 <path
                   d="M0 18 Q 20 8, 40 14 T 70 6 T 100 12"
                   stroke={theme.wave}

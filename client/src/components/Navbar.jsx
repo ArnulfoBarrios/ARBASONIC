@@ -10,7 +10,8 @@ import {
   Clock,
   CheckCheck,
   Calendar,
-  ArrowRight
+  ArrowRight,
+  Menu
 } from 'lucide-react';
 
 const TAB_TITLES = {
@@ -27,6 +28,7 @@ export default function Navbar({
   notifications = [],
   onNotificationClick,
   onGoToReports,
+  onOpenMobileMenu,
   isDarkMode,
   onToggleTheme
 }) {
@@ -102,37 +104,53 @@ export default function Navbar({
   }).format(new Date());
 
   return (
-    <header className={`h-18 px-6 md:px-8 py-3 flex items-center justify-between sticky top-0 z-20 transition-colors duration-200 ${
+    <header className={`px-3.5 sm:px-6 md:px-8 py-3 flex items-center justify-between sticky top-0 z-20 transition-colors duration-200 ${
       isDarkMode
         ? 'bg-[#071738]/95 backdrop-blur-md border-b border-[#142854] text-white'
         : 'bg-white/95 backdrop-blur-md border-b border-slate-200/90 text-slate-800 shadow-sm'
     }`}>
-      {/* Left: Section Context Title & Today's Date */}
-      <div className="min-w-0">
-        <div className="flex items-center gap-3">
-          <h2 className={`text-sm md:text-base font-extrabold tracking-tight truncate ${
-            isDarkMode ? 'text-white' : 'text-slate-900'
-          }`}>
-            {tabInfo.title}
-          </h2>
-          <span className={`hidden md:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold capitalize ${
+      {/* Left: Hamburger (Mobile/Tablet) + Section Title & Date */}
+      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <button
+          type="button"
+          onClick={onOpenMobileMenu}
+          aria-label="Abrir menú de navegación"
+          className={`lg:hidden p-2 rounded-xl transition-colors shrink-0 ${
             isDarkMode
-              ? 'bg-[#102452] text-cyan-300 border border-[#1d3975]'
-              : 'bg-slate-100 text-slate-600 border border-slate-200'
-          }`}>
-            <Calendar className="w-3 h-3 text-cyan-500" />
-            {formattedDate}
-          </span>
+              ? 'bg-[#102452] text-cyan-300 hover:bg-[#16306e]'
+              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+          }`}
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+
+        <div className="min-w-0">
+          <div className="flex items-center gap-2.5">
+            <h2 className={`text-sm sm:text-base font-extrabold tracking-tight truncate ${
+              isDarkMode ? 'text-white' : 'text-slate-900'
+            }`}>
+              {tabInfo.title}
+            </h2>
+            <span className={`hidden xl:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold capitalize shrink-0 ${
+              isDarkMode
+                ? 'bg-[#102452] text-cyan-300 border border-[#1d3975]'
+                : 'bg-slate-100 text-slate-600 border border-slate-200'
+            }`}>
+              <Calendar className="w-3 h-3 text-cyan-500" />
+              {formattedDate}
+            </span>
+          </div>
+          <p className={`text-[11px] truncate hidden sm:block ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+            {tabInfo.subtitle}
+          </p>
         </div>
-        <p className={`text-[11px] truncate hidden sm:block ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-          {tabInfo.subtitle}
-        </p>
       </div>
 
       {/* Right Controls: Theme Switcher, Live Notifications & User Profile */}
-      <div className="flex items-center gap-3.5 ml-4 shrink-0">
+      <div className="flex items-center gap-2 sm:gap-3.5 ml-2 shrink-0">
         {/* Modo Claro / Oscuro Toggle */}
         <button
+          type="button"
           onClick={onToggleTheme}
           title={isDarkMode ? 'Cambiar a Modo Claro' : 'Cambiar a Modo Oscuro'}
           className={`p-2 rounded-xl transition-all flex items-center justify-center ${
@@ -141,7 +159,7 @@ export default function Navbar({
               : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-cyan-600'
           }`}
         >
-          {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          {isDarkMode ? <Sun className="w-4 h-4 sm:w-5 sm:h-5" /> : <Moon className="w-4 h-4 sm:w-5 sm:h-5" />}
         </button>
 
         {/* Functional Notifications Center */}
@@ -160,7 +178,7 @@ export default function Navbar({
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
-            <Bell className="w-5 h-5" />
+            <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
             {unreadCount > 0 && (
               <span className="absolute top-1 right-1 min-w-[16px] h-4 px-1 bg-red-500 text-white rounded-full text-[10px] font-bold flex items-center justify-center shadow-md">
                 {unreadCount > 9 ? '9+' : unreadCount}
@@ -168,14 +186,13 @@ export default function Navbar({
             )}
           </button>
 
-          {/* Notifications Dropdown Panel */}
+          {/* Notifications Panel (Full-width centered on mobile, right-aligned dropdown on sm+) */}
           {notifOpen && (
-            <div className={`absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl border overflow-hidden z-50 ${
+            <div className={`fixed left-3 right-3 top-16 sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-96 rounded-2xl border overflow-hidden z-50 ${
               isDarkMode
                 ? 'bg-[#0b152a] border-cyan-500/40 shadow-2xl text-white'
                 : 'bg-white border-slate-200 shadow-2xl text-slate-800'
             }`}>
-              {/* Header */}
               <div className={`px-4 py-3 border-b flex items-center justify-between ${
                 isDarkMode ? 'border-[#1b2f57] bg-[#0e1b36]' : 'border-slate-100 bg-slate-50'
               }`}>
@@ -202,8 +219,7 @@ export default function Navbar({
                 )}
               </div>
 
-              {/* List */}
-              <div className={`max-h-80 overflow-y-auto divide-y ${
+              <div className={`max-h-[65vh] sm:max-h-80 overflow-y-auto divide-y ${
                 isDarkMode ? 'divide-[#152445]' : 'divide-slate-100'
               }`}>
                 {notifications.length === 0 ? (
@@ -255,7 +271,6 @@ export default function Navbar({
                 )}
               </div>
 
-              {/* Footer */}
               <div className={`px-4 py-2.5 border-t ${
                 isDarkMode ? 'border-[#1b2f57] bg-[#091224]' : 'border-slate-100 bg-slate-50'
               }`}>
@@ -275,14 +290,14 @@ export default function Navbar({
           )}
         </div>
 
-        <div className={`h-7 w-[1px] ${isDarkMode ? 'bg-[#142854]' : 'bg-slate-200'}`} />
+        <div className={`hidden sm:block h-7 w-[1px] ${isDarkMode ? 'bg-[#142854]' : 'bg-slate-200'}`} />
 
         {/* User Profile */}
-        <div className="flex items-center gap-3 p-1 rounded-xl">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#00c6ff] to-[#0072ff] flex items-center justify-center text-white font-bold shadow-md shadow-cyan-900/20">
-            <User className="w-5 h-5 text-white" />
+        <div className="flex items-center gap-2.5 p-0.5 sm:p-1 rounded-xl">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-[#00c6ff] to-[#0072ff] flex items-center justify-center text-white font-bold shadow-md shadow-cyan-900/20">
+            <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </div>
-          <div className="text-left hidden sm:block">
+          <div className="text-left hidden md:block">
             <p className={`text-xs font-bold leading-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
               Arnulfo Barrios
             </p>

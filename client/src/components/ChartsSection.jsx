@@ -39,17 +39,17 @@ export default function ChartsSection({
   const borderDivider = isDarkMode ? 'border-[#182744]' : 'border-slate-100';
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
-      {/* Resumen General Card (Left 2 cols, Exact to Image 1) */}
-      <div className={`lg:col-span-2 rounded-2xl border p-5 shadow-sm transition-colors ${cardBg}`}>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 mb-5 sm:mb-6">
+      {/* Resumen General Card (Left 2 cols) */}
+      <div className={`lg:col-span-2 rounded-2xl border p-4 sm:p-5 shadow-sm transition-colors ${cardBg}`}>
         {/* Card Header */}
-        <div className={`flex items-center justify-between pb-4 border-b ${borderDivider}`}>
+        <div className={`flex flex-wrap items-center justify-between gap-2 pb-3.5 sm:pb-4 border-b ${borderDivider}`}>
           <div className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-cyan-500" />
-            <h3 className="text-base font-bold tracking-wide">Resumen General</h3>
+            <BarChart3 className="w-5 h-5 text-cyan-500 shrink-0" />
+            <h3 className="text-sm sm:text-base font-bold tracking-wide">Resumen General</h3>
           </div>
           <div className="relative">
-            <button className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-colors ${
+            <button className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold border transition-colors ${
               isDarkMode 
                 ? 'bg-[#132240] text-slate-300 border-[#21355b] hover:border-cyan-500' 
                 : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
@@ -61,7 +61,7 @@ export default function ChartsSection({
         </div>
 
         {/* Content: Donut + Line Chart */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center pt-5">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 items-center pt-4 sm:pt-5">
           {/* Donut Chart (5 cols) */}
           <div className="md:col-span-5 flex flex-col items-center justify-center">
             <div className="relative w-36 h-36 flex items-center justify-center">
@@ -211,19 +211,19 @@ export default function ChartsSection({
       </div>
 
       {/* Acciones Rápidas (Right 1 col - EXACT SOLID BLUE TILES AS IN IMAGE 1) */}
-      <div className={`rounded-2xl border p-5 shadow-sm flex flex-col justify-between transition-colors ${cardBg}`}>
-        <div className={`pb-4 border-b flex items-center gap-2 ${borderDivider}`}>
-          <Zap className="w-5 h-5 text-cyan-500" />
-          <h3 className="text-base font-bold tracking-wide">Acciones Rápidas</h3>
+      <div className={`rounded-2xl border p-4 sm:p-5 shadow-sm flex flex-col justify-between transition-colors ${cardBg}`}>
+        <div className={`pb-3.5 sm:pb-4 border-b flex items-center gap-2 ${borderDivider}`}>
+          <Zap className="w-5 h-5 text-cyan-500 shrink-0" />
+          <h3 className="text-sm sm:text-base font-bold tracking-wide">Acciones Rápidas</h3>
         </div>
 
-        <div className="grid grid-cols-2 gap-3.5 my-auto py-3">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5 my-auto pt-3 sm:py-3">
           {/* Action 1: Registrar Equipo */}
           <button
             onClick={onOpenRegister}
-            className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gradient-to-br from-[#0091ff] to-[#0066cc] hover:from-[#00a2ff] hover:to-[#0077ee] text-white font-bold text-xs transition-all hover:scale-[1.03] shadow-md shadow-sky-500/25 group text-center"
+            className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-gradient-to-br from-[#0091ff] to-[#0066cc] hover:from-[#00a2ff] hover:to-[#0077ee] text-white font-bold text-xs transition-all hover:scale-[1.03] shadow-md shadow-sky-500/25 group text-center"
           >
-            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform">
               <PlusCircle className="w-5 h-5 text-white" />
             </div>
             <span>Registrar Equipo</span>
@@ -232,9 +232,9 @@ export default function ChartsSection({
           {/* Action 2: Buscar Equipo */}
           <button
             onClick={onFocusSearch}
-            className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gradient-to-br from-[#0080ff] to-[#0055bb] hover:from-[#0091ff] hover:to-[#0066cc] text-white font-bold text-xs transition-all hover:scale-[1.03] shadow-md shadow-sky-500/25 group text-center"
+            className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-gradient-to-br from-[#0080ff] to-[#0055bb] hover:from-[#0091ff] hover:to-[#0066cc] text-white font-bold text-xs transition-all hover:scale-[1.03] shadow-md shadow-sky-500/25 group text-center"
           >
-            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform">
               <Search className="w-5 h-5 text-white" />
             </div>
             <span>Buscar Equipo</span>
@@ -243,9 +243,9 @@ export default function ChartsSection({
           {/* Action 3: Ver Reportes */}
           <button
             onClick={onOpenReports}
-            className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gradient-to-br from-[#0070ea] to-[#004bb5] hover:from-[#0080ff] hover:to-[#0055bb] text-white font-bold text-xs transition-all hover:scale-[1.03] shadow-md shadow-sky-500/25 group text-center"
+            className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-gradient-to-br from-[#0070ea] to-[#004bb5] hover:from-[#0080ff] hover:to-[#0055bb] text-white font-bold text-xs transition-all hover:scale-[1.03] shadow-md shadow-sky-500/25 group text-center"
           >
-            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform">
               <FileText className="w-5 h-5 text-white" />
             </div>
             <span>Ver Reportes</span>
@@ -254,9 +254,9 @@ export default function ChartsSection({
           {/* Action 4: Gestionar Catálogos */}
           <button
             onClick={onOpenCatalogs}
-            className="flex flex-col items-center justify-center p-4 rounded-2xl bg-gradient-to-br from-[#0066d6] to-[#0040a0] hover:from-[#0070ea] hover:to-[#004bb5] text-white font-bold text-xs transition-all hover:scale-[1.03] shadow-md shadow-sky-500/25 group text-center"
+            className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-gradient-to-br from-[#0066d6] to-[#0040a0] hover:from-[#0070ea] hover:to-[#004bb5] text-white font-bold text-xs transition-all hover:scale-[1.03] shadow-md shadow-sky-500/25 group text-center"
           >
-            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform">
               <SlidersHorizontal className="w-5 h-5 text-white" />
             </div>
             <span>Gestionar Catálogos</span>

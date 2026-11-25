@@ -104,9 +104,9 @@ export default function ReportesView({ isDarkMode }) {
     const maxVal = items.length > 0 ? Math.max(...items.map((i) => i.cantidad)) : 1;
     const totalVal = items.reduce((acc, i) => acc + i.cantidad, 0) || 1;
     return (
-      <div className={`rounded-2xl border p-5 ${cardBg}`}>
+      <div className={`rounded-2xl border p-4 sm:p-5 ${cardBg}`}>
         <div className={`flex items-center gap-2 pb-3 mb-4 border-b ${divider}`}>
-          <Icon className="w-4 h-4 text-cyan-500" />
+          <Icon className="w-4 h-4 text-cyan-500 shrink-0" />
           <h3 className="text-sm font-bold">{title}</h3>
         </div>
         {items.length === 0 ? (
@@ -140,12 +140,12 @@ export default function ReportesView({ isDarkMode }) {
   };
 
   return (
-    <div id="printable-report" className="space-y-6">
+    <div id="printable-report" className="space-y-5 sm:space-y-6">
       {/* Header & Period Controls */}
-      <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
+      <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h2 className="text-xl font-black tracking-tight flex items-center gap-2">
-            <BarChart2 className="w-6 h-6 text-cyan-500" />
+          <h2 className="text-lg sm:text-xl font-black tracking-tight flex items-center gap-2">
+            <BarChart2 className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-500 shrink-0" />
             <span>Reportes y Estadísticas del Taller</span>
           </h2>
           <p className={`text-xs mt-1 ${subText}`}>
@@ -154,8 +154,8 @@ export default function ReportesView({ isDarkMode }) {
         </div>
 
         {/* Period Filter & Print */}
-        <div className="flex flex-wrap items-center gap-2.5 print:hidden">
-          <div className={`inline-flex rounded-xl p-1 border ${
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2.5 w-full xl:w-auto print:hidden">
+          <div className={`grid grid-cols-4 sm:inline-flex rounded-xl p-1 border ${
             isDarkMode ? 'bg-[#102245] border-[#1d3568]' : 'bg-slate-200/80 border-slate-300'
           }`}>
             {[
@@ -167,7 +167,7 @@ export default function ReportesView({ isDarkMode }) {
               <button
                 key={p.id}
                 onClick={() => applyPreset(p.id)}
-                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                className={`px-2 sm:px-3 py-1.5 sm:py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all text-center whitespace-nowrap ${
                   preset === p.id
                     ? 'bg-gradient-to-r from-[#00c6ff] to-[#0072ff] text-white shadow-sm'
                     : isDarkMode ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-600 hover:text-cyan-700'
@@ -178,7 +178,7 @@ export default function ReportesView({ isDarkMode }) {
             ))}
           </div>
 
-          <div className={`flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs border ${inputBg}`}>
+          <div className={`flex items-center gap-1.5 rounded-xl px-2.5 py-2 sm:py-1.5 text-xs border w-full sm:w-auto ${inputBg}`}>
             <Calendar className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
             <input
               type="date"
@@ -187,9 +187,9 @@ export default function ReportesView({ isDarkMode }) {
                 setPreset('custom');
                 setFechaDesde(e.target.value);
               }}
-              className="bg-transparent text-[11px] focus:outline-none cursor-pointer"
+              className="min-w-0 flex-1 sm:flex-initial bg-transparent text-[11px] focus:outline-none cursor-pointer"
             />
-            <span className="text-slate-400">-</span>
+            <span className="text-slate-400 shrink-0">-</span>
             <input
               type="date"
               value={fechaHasta}
@@ -197,13 +197,13 @@ export default function ReportesView({ isDarkMode }) {
                 setPreset('custom');
                 setFechaHasta(e.target.value);
               }}
-              className="bg-transparent text-[11px] focus:outline-none cursor-pointer"
+              className="min-w-0 flex-1 sm:flex-initial bg-transparent text-[11px] focus:outline-none cursor-pointer"
             />
           </div>
 
           <button
             onClick={() => window.print()}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:brightness-110 text-white font-bold text-xs shadow-md shadow-sky-500/20"
+            className="flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:brightness-110 text-white font-bold text-xs shadow-md shadow-sky-500/20 w-full sm:w-auto"
           >
             <Printer className="w-4 h-4" />
             <span>Imprimir / PDF</span>
@@ -212,71 +212,71 @@ export default function ReportesView({ isDarkMode }) {
       </div>
 
       {/* Export Bar (Excel / CSV + Backup SQLite) */}
-      <div className={`rounded-2xl border p-4 print:hidden ${cardBg}`}>
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
+      <div className={`rounded-2xl border p-3.5 sm:p-4 print:hidden ${cardBg}`}>
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <FileSpreadsheet className="w-4 h-4 text-emerald-500 shrink-0" />
             <span className="text-xs font-bold">Exportar datos para Excel y Copias de Seguridad:</span>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 w-full lg:w-auto">
             <button
               onClick={() => handleExportCsv('ordenes')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
+              className={`flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
                 isDarkMode
                   ? 'bg-[#112244] border-[#213b6e] text-cyan-300 hover:bg-[#172e59]'
                   : 'bg-sky-50 border-sky-200 text-sky-700 hover:bg-sky-100'
               }`}
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>Órdenes (.csv)</span>
+              <Download className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">Órdenes (.csv)</span>
             </button>
 
             <button
               onClick={() => handleExportCsv('repuestos')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
+              className={`flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
                 isDarkMode
                   ? 'bg-[#112244] border-[#213b6e] text-cyan-300 hover:bg-[#172e59]'
                   : 'bg-sky-50 border-sky-200 text-sky-700 hover:bg-sky-100'
               }`}
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>Repuestos (.csv)</span>
+              <Download className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">Repuestos (.csv)</span>
             </button>
 
             <button
               onClick={() => handleExportCsv('herramientas')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
+              className={`flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
                 isDarkMode
                   ? 'bg-[#112244] border-[#213b6e] text-cyan-300 hover:bg-[#172e59]'
                   : 'bg-sky-50 border-sky-200 text-sky-700 hover:bg-sky-100'
               }`}
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>Herramientas (.csv)</span>
+              <Download className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">Herramientas</span>
             </button>
 
             <button
               onClick={() => handleExportCsv('prestamos')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
+              className={`flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
                 isDarkMode
                   ? 'bg-[#112244] border-[#213b6e] text-cyan-300 hover:bg-[#172e59]'
                   : 'bg-sky-50 border-sky-200 text-sky-700 hover:bg-sky-100'
               }`}
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>Préstamos (.csv)</span>
+              <Download className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">Préstamos (.csv)</span>
             </button>
 
             <button
               onClick={handleDownloadBackup}
-              title="Descarga el archivo completo arbasonic.db para guardarlo en USB o Google Drive"
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border text-xs font-bold transition-colors ${
+              title="Descarga el respaldo completo de la base de datos"
+              className={`col-span-2 sm:col-span-1 flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-xl border text-xs font-bold transition-colors ${
                 isDarkMode
                   ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25'
                   : 'bg-emerald-50 border-emerald-300 text-emerald-700 hover:bg-emerald-100'
               }`}
             >
-              <Database className="w-3.5 h-3.5" />
+              <Database className="w-3.5 h-3.5 shrink-0" />
               <span>Respaldo BD</span>
             </button>
           </div>
@@ -284,13 +284,13 @@ export default function ReportesView({ isDarkMode }) {
       </div>
 
       {/* 4 Financial & Operational Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-[#0d2a20] border-[#144735]' : 'bg-[#e8fbf3] border-emerald-200'}`}>
-          <div className="flex items-center justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className={`p-4 sm:p-5 rounded-2xl border ${isDarkMode ? 'bg-[#0d2a20] border-[#144735]' : 'bg-[#e8fbf3] border-emerald-200'}`}>
+          <div className="flex items-center justify-between gap-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-emerald-300' : 'text-emerald-800'}`}>Facturado Final</span>
-            <DollarSign className="w-4 h-4 text-emerald-500" />
+            <DollarSign className="w-4 h-4 text-emerald-500 shrink-0" />
           </div>
-          <h3 className={`text-2xl font-black mt-1.5 font-mono ${isDarkMode ? 'text-emerald-400' : 'text-emerald-700'}`}>
+          <h3 className={`text-xl sm:text-2xl font-black mt-1.5 font-mono truncate ${isDarkMode ? 'text-emerald-400' : 'text-emerald-700'}`}>
             {formatMoney(ordenes.ingresosCobrados)}
           </h3>
           <p className={`text-[11px] mt-1 ${isDarkMode ? 'text-emerald-200/70' : 'text-emerald-700/80'}`}>
@@ -298,12 +298,12 @@ export default function ReportesView({ isDarkMode }) {
           </p>
         </div>
 
-        <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-[#0b1c3d] border-cyan-500/30' : 'bg-[#e5f4fe] border-cyan-200'}`}>
-          <div className="flex items-center justify-between">
+        <div className={`p-4 sm:p-5 rounded-2xl border ${isDarkMode ? 'bg-[#0b1c3d] border-cyan-500/30' : 'bg-[#e5f4fe] border-cyan-200'}`}>
+          <div className="flex items-center justify-between gap-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>En Taller (Estimado)</span>
-            <TrendingUp className="w-4 h-4 text-cyan-500" />
+            <TrendingUp className="w-4 h-4 text-cyan-500 shrink-0" />
           </div>
-          <h3 className="text-2xl font-black mt-1.5 font-mono">
+          <h3 className="text-xl sm:text-2xl font-black mt-1.5 font-mono truncate">
             {formatMoney(ordenes.ingresosEstimadosActivos)}
           </h3>
           <p className={`text-[11px] mt-1 ${subText}`}>
@@ -311,12 +311,12 @@ export default function ReportesView({ isDarkMode }) {
           </p>
         </div>
 
-        <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-[#26180c] border-[#4d2f16]' : 'bg-[#fff5e9] border-amber-200'}`}>
-          <div className="flex items-center justify-between">
+        <div className={`p-4 sm:p-5 rounded-2xl border ${isDarkMode ? 'bg-[#26180c] border-[#4d2f16]' : 'bg-[#fff5e9] border-amber-200'}`}>
+          <div className="flex items-center justify-between gap-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-amber-300' : 'text-amber-800'}`}>Inventario Repuestos</span>
-            <Cpu className="w-4 h-4 text-amber-500" />
+            <Cpu className="w-4 h-4 text-amber-500 shrink-0" />
           </div>
-          <h3 className="text-2xl font-black mt-1.5 font-mono text-amber-500">
+          <h3 className="text-xl sm:text-2xl font-black mt-1.5 font-mono text-amber-500 truncate">
             {formatMoney(inv.valorCostoRepuestos)}
           </h3>
           <p className={`text-[11px] mt-1 ${isDarkMode ? 'text-amber-200/70' : 'text-amber-800/80'}`}>
@@ -324,12 +324,12 @@ export default function ReportesView({ isDarkMode }) {
           </p>
         </div>
 
-        <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-[#22173d] border-purple-500/30' : 'bg-[#f3effe] border-purple-200'}`}>
-          <div className="flex items-center justify-between">
+        <div className={`p-4 sm:p-5 rounded-2xl border ${isDarkMode ? 'bg-[#22173d] border-purple-500/30' : 'bg-[#f3effe] border-purple-200'}`}>
+          <div className="flex items-center justify-between gap-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-purple-300' : 'text-purple-800'}`}>Capital en Herramientas</span>
-            <Wrench className="w-4 h-4 text-purple-500" />
+            <Wrench className="w-4 h-4 text-purple-500 shrink-0" />
           </div>
-          <h3 className={`text-2xl font-black mt-1.5 font-mono ${isDarkMode ? 'text-purple-300' : 'text-purple-700'}`}>
+          <h3 className={`text-xl sm:text-2xl font-black mt-1.5 font-mono truncate ${isDarkMode ? 'text-purple-300' : 'text-purple-700'}`}>
             {formatMoney(inv.valorHerramientas)}
           </h3>
           <p className={`text-[11px] mt-1 ${isDarkMode ? 'text-purple-200/70' : 'text-purple-800/80'}`}>
@@ -340,11 +340,11 @@ export default function ReportesView({ isDarkMode }) {
 
       {/* 3 Rankings Grid */}
       {loading && !report ? (
-        <div className={`rounded-2xl border p-10 text-center text-xs ${cardBg}`}>
+        <div className={`rounded-2xl border p-8 sm:p-10 text-center text-xs ${cardBg}`}>
           Cargando estadísticas del taller...
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5">
           <RankingCard
             title="Top Marcas Más Atendidas"
             icon={Tag}
@@ -367,15 +367,15 @@ export default function ReportesView({ isDarkMode }) {
       )}
 
       {/* Operational Alerts: Low Stock & Overdue Loans */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
         {/* Stock Bajo */}
-        <div className={`rounded-2xl border p-5 ${cardBg}`}>
+        <div className={`rounded-2xl border p-4 sm:p-5 ${cardBg}`}>
           <div className={`flex items-center justify-between pb-3 mb-3 border-b ${divider}`}>
-            <div className="flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-amber-500" />
-              <h3 className="text-sm font-bold">Repuestos por Reabastecer</h3>
+            <div className="flex items-center gap-2 min-w-0">
+              <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" />
+              <h3 className="text-sm font-bold truncate">Repuestos por Reabastecer</h3>
             </div>
-            <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${
+            <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold shrink-0 ${
               alertas.stockBajo.length > 0
                 ? isDarkMode ? 'bg-amber-500/20 text-amber-300' : 'bg-amber-100 text-amber-800'
                 : isDarkMode ? 'bg-emerald-500/20 text-emerald-300' : 'bg-emerald-100 text-emerald-700'
@@ -385,8 +385,8 @@ export default function ReportesView({ isDarkMode }) {
           </div>
 
           {alertas.stockBajo.length === 0 ? (
-            <div className="flex items-center gap-2 py-5 text-xs text-emerald-500 font-semibold justify-center">
-              <CheckCircle2 className="w-4 h-4" />
+            <div className="flex items-center gap-2 py-5 text-xs text-emerald-500 font-semibold justify-center text-center">
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>Todo el inventario de repuestos está por encima del stock mínimo.</span>
             </div>
           ) : (
@@ -394,15 +394,15 @@ export default function ReportesView({ isDarkMode }) {
               {alertas.stockBajo.map((r) => (
                 <div
                   key={r.id}
-                  className={`flex items-center justify-between p-2.5 rounded-xl text-xs border ${
+                  className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 sm:p-3 rounded-xl text-xs border ${
                     isDarkMode ? 'bg-[#101e3b] border-[#1c325e]' : 'bg-slate-50 border-slate-200'
                   }`}
                 >
-                  <div className="min-w-0 pr-3">
+                  <div className="min-w-0">
                     <span className="font-mono font-bold text-cyan-500 mr-2">{r.codigo}</span>
-                    <span className="font-semibold">{r.descripcion}</span>
+                    <span className="font-semibold break-words">{r.descripcion}</span>
                   </div>
-                  <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${
+                  <span className={`self-start sm:self-center shrink-0 px-2.5 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${
                     isDarkMode ? 'bg-red-500/20 text-red-300' : 'bg-red-100 text-red-700'
                   }`}>
                     {r.stock_actual} / mín. {r.stock_minimo}
@@ -414,13 +414,13 @@ export default function ReportesView({ isDarkMode }) {
         </div>
 
         {/* Préstamos Retrasados */}
-        <div className={`rounded-2xl border p-5 ${cardBg}`}>
+        <div className={`rounded-2xl border p-4 sm:p-5 ${cardBg}`}>
           <div className={`flex items-center justify-between pb-3 mb-3 border-b ${divider}`}>
-            <div className="flex items-center gap-2">
-              <ShieldAlert className="w-4 h-4 text-red-500" />
-              <h3 className="text-sm font-bold">Préstamos de Herramientas Retrasados</h3>
+            <div className="flex items-center gap-2 min-w-0">
+              <ShieldAlert className="w-4 h-4 text-red-500 shrink-0" />
+              <h3 className="text-sm font-bold truncate">Préstamos de Herramientas Retrasados</h3>
             </div>
-            <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${
+            <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold shrink-0 ${
               alertas.prestamosVencidos.length > 0
                 ? isDarkMode ? 'bg-red-500/20 text-red-300' : 'bg-red-100 text-red-700'
                 : isDarkMode ? 'bg-emerald-500/20 text-emerald-300' : 'bg-emerald-100 text-emerald-700'
@@ -430,8 +430,8 @@ export default function ReportesView({ isDarkMode }) {
           </div>
 
           {alertas.prestamosVencidos.length === 0 ? (
-            <div className="flex items-center gap-2 py-5 text-xs text-emerald-500 font-semibold justify-center">
-              <CheckCircle2 className="w-4 h-4" />
+            <div className="flex items-center gap-2 py-5 text-xs text-emerald-500 font-semibold justify-center text-center">
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>No hay herramientas con devolución vencida.</span>
             </div>
           ) : (
@@ -439,18 +439,18 @@ export default function ReportesView({ isDarkMode }) {
               {alertas.prestamosVencidos.map((p) => (
                 <div
                   key={p.id}
-                  className={`flex items-center justify-between p-2.5 rounded-xl text-xs border ${
+                  className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 sm:p-3 rounded-xl text-xs border ${
                     isDarkMode ? 'bg-[#101e3b] border-[#1c325e]' : 'bg-slate-50 border-slate-200'
                   }`}
                 >
-                  <div className="min-w-0 pr-3">
+                  <div className="min-w-0">
                     <span className="font-mono font-bold text-cyan-500 mr-2">{p.herramienta_codigo}</span>
-                    <span className="font-semibold">{p.herramienta_nombre}</span>
-                    <p className={`text-[11px] ${subText}`}>
+                    <span className="font-semibold break-words">{p.herramienta_nombre}</span>
+                    <p className={`text-[11px] mt-0.5 ${subText}`}>
                       {p.persona_recibe} ({p.departamento}) · Previsto: {p.devolucion_prevista}
                     </p>
                   </div>
-                  <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${
+                  <span className={`self-start sm:self-center shrink-0 px-2.5 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${
                     isDarkMode ? 'bg-red-500/20 text-red-300' : 'bg-red-100 text-red-700'
                   }`}>
                     {p.dias_retraso} días

@@ -183,12 +183,12 @@ export default function RepuestosView({ isDarkMode }) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h2 className="text-xl font-black tracking-tight flex items-center gap-2">
-            <Cpu className="w-6 h-6 text-cyan-500" />
+          <h2 className="text-lg sm:text-xl font-black tracking-tight flex items-center gap-2">
+            <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-500 shrink-0" />
             <span>Inventario de Repuestos y Componentes</span>
           </h2>
           <p className={`text-xs mt-1 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -198,7 +198,7 @@ export default function RepuestosView({ isDarkMode }) {
 
         <button
           onClick={handleOpenAdd}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:brightness-110 text-white font-bold text-xs shadow-md shadow-sky-500/25 transition-all"
+          className="flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:brightness-110 text-white font-bold text-xs shadow-md shadow-sky-500/25 transition-all w-full sm:w-auto shrink-0"
         >
           <Plus className="w-4 h-4" />
           <span>Registrar Repuesto</span>
@@ -206,50 +206,50 @@ export default function RepuestosView({ isDarkMode }) {
       </div>
 
       {/* KPI Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className={`p-4 rounded-2xl border ${isDarkMode ? 'bg-[#0d1a33] border-[#1c305a]' : 'bg-[#e5f4fe] border-cyan-200'}`}>
-          <div className="flex items-center justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+        <div className={`p-3.5 sm:p-4 rounded-2xl border ${isDarkMode ? 'bg-[#0d1a33] border-[#1c305a]' : 'bg-[#e5f4fe] border-cyan-200'}`}>
+          <div className="flex items-center justify-between gap-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Repuestos Registrados</span>
-            <Layers className="w-4 h-4 text-cyan-500" />
+            <Layers className="w-4 h-4 text-cyan-500 shrink-0" />
           </div>
-          <h3 className="text-2xl font-black mt-1">{totalItems}</h3>
+          <h3 className="text-xl sm:text-2xl font-black mt-1">{totalItems}</h3>
         </div>
 
-        <div className={`p-4 rounded-2xl border ${isDarkMode ? 'bg-[#26180c] border-[#4d2f16]' : 'bg-[#fff5e9] border-amber-200'}`}>
-          <div className="flex items-center justify-between">
+        <div className={`p-3.5 sm:p-4 rounded-2xl border ${isDarkMode ? 'bg-[#26180c] border-[#4d2f16]' : 'bg-[#fff5e9] border-amber-200'}`}>
+          <div className="flex items-center justify-between gap-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-amber-300' : 'text-amber-700'}`}>Por Reabastecer (Bajo Stock)</span>
-            <AlertTriangle className="w-4 h-4 text-amber-500" />
+            <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" />
           </div>
-          <h3 className="text-2xl font-black text-amber-500 mt-1">{itemsBajoStock}</h3>
+          <h3 className="text-xl sm:text-2xl font-black text-amber-500 mt-1">{itemsBajoStock}</h3>
         </div>
 
-        <div className={`p-4 rounded-2xl border ${isDarkMode ? 'bg-[#0d2a20] border-[#144735]' : 'bg-[#e8fbf3] border-emerald-200'}`}>
-          <div className="flex items-center justify-between">
+        <div className={`p-3.5 sm:p-4 rounded-2xl border ${isDarkMode ? 'bg-[#0d2a20] border-[#144735]' : 'bg-[#e8fbf3] border-emerald-200'}`}>
+          <div className="flex items-center justify-between gap-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-emerald-300' : 'text-emerald-700'}`}>Valor Total en Stock</span>
-            <DollarSign className="w-4 h-4 text-emerald-500" />
+            <DollarSign className="w-4 h-4 text-emerald-500 shrink-0" />
           </div>
-          <h3 className={`text-2xl font-black mt-1 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
+          <h3 className={`text-xl sm:text-2xl font-black mt-1 truncate ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
             ${valorTotalInventario.toLocaleString('es-CO')}
           </h3>
         </div>
       </div>
 
       {/* Filter and Table Card */}
-      <div className={`rounded-2xl border p-5 shadow-sm ${cardBg}`}>
+      <div className={`rounded-2xl border p-3.5 sm:p-5 shadow-sm ${cardBg}`}>
         {/* Filter Controls */}
-        <div className={`flex flex-wrap items-center gap-3 pb-4 border-b mb-4 ${isDarkMode ? 'border-[#182744]' : 'border-slate-100'}`}>
-          <div className="relative min-w-[200px] flex-1 sm:flex-initial">
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-center gap-2.5 sm:gap-3 pb-4 border-b mb-4 ${isDarkMode ? 'border-[#182744]' : 'border-slate-100'}`}>
+          <div className="relative w-full lg:w-64 lg:flex-1 lg:max-w-sm">
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Buscar por código, descripción o referencia..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className={`w-full rounded-xl pl-9 pr-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500 ${inputBg}`}
+              className={`w-full rounded-xl pl-9 pr-3 py-2 sm:py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500 ${inputBg}`}
             />
           </div>
 
-          <div className="min-w-[180px]">
+          <div className="w-full lg:w-52">
             <SearchableSelect
               compact
               isDarkMode={isDarkMode}
@@ -263,19 +263,119 @@ export default function RepuestosView({ isDarkMode }) {
             />
           </div>
 
-          <label className="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+          <label className="flex items-center gap-2 text-xs font-semibold cursor-pointer py-1 sm:col-span-2 lg:col-span-1">
             <input
               type="checkbox"
               checked={soloBajoStock}
               onChange={(e) => setSoloBajoStock(e.target.checked)}
-              className="accent-cyan-500 rounded"
+              className="accent-cyan-500 rounded w-4 h-4"
             />
             <span>Solo stock bajo / crítico</span>
           </label>
         </div>
 
-        {/* Table */}
-        <div className="overflow-x-auto">
+        {/* Vista Móvil y Tablet en Tarjetas (< xl) */}
+        <div className="xl:hidden grid grid-cols-1 md:grid-cols-2 gap-3">
+          {repuestos.length === 0 ? (
+            <div className="md:col-span-2 py-10 text-center text-xs text-slate-400">
+              No se encontraron repuestos registrados.
+            </div>
+          ) : (
+            repuestos.map((r) => {
+              const isLow = r.stock_actual <= r.stock_minimo;
+              return (
+                <div
+                  key={r.id}
+                  className={`rounded-xl border p-3.5 flex flex-col justify-between gap-2.5 ${
+                    isDarkMode ? 'bg-[#0f1c36] border-[#1c305a]' : 'bg-slate-50/70 border-slate-200/90'
+                  }`}
+                >
+                  <div className="space-y-2.5">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex flex-wrap items-center gap-1.5 min-w-0">
+                        <span className={`font-mono font-bold text-xs ${isDarkMode ? 'text-cyan-400' : 'text-cyan-700'}`}>
+                          {r.codigo}
+                        </span>
+                        <span className={`inline-block whitespace-nowrap px-2 py-0.5 rounded-full text-[10px] font-semibold ${getCategoryBadgeStyle(r.categoria)}`}>
+                          {r.categoria}
+                        </span>
+                      </div>
+                      <span className={`inline-block whitespace-nowrap shrink-0 px-2.5 py-0.5 rounded-full font-bold text-[11px] ${
+                        isLow
+                          ? isDarkMode
+                            ? 'bg-red-500/20 text-red-300 border border-red-500/30'
+                            : 'bg-red-100 text-red-700 border border-red-200'
+                          : isDarkMode
+                            ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                            : 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                      }`}>
+                        Stock: {r.stock_actual} / {r.stock_minimo}
+                      </span>
+                    </div>
+
+                    <div>
+                      <h4 className={`font-bold text-sm leading-snug ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                        {r.descripcion}
+                      </h4>
+                      {(r.marca || r.referencia) && (
+                        <p className={`text-[11px] font-mono mt-0.5 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                          {r.marca} {r.referencia ? `(${r.referencia})` : ''}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className={`grid grid-cols-2 gap-2 pt-2 border-t text-[11px] ${isDarkMode ? 'border-[#1b2e54]' : 'border-slate-200/80'}`}>
+                      <div>
+                        <span className={`block text-[10px] ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Precio Costo</span>
+                        <span className={`font-mono font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                          ${Number(r.precio_costo || 0).toLocaleString('es-CO')}
+                        </span>
+                      </div>
+                      <div>
+                        <span className={`block text-[10px] ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Precio Venta</span>
+                        <span className={`font-mono font-bold ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                          ${Number(r.precio_venta || 0).toLocaleString('es-CO')}
+                        </span>
+                      </div>
+                      <div className="col-span-2">
+                        <span className={`text-[10px] ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Ubicación: </span>
+                        <span className={isDarkMode ? 'text-slate-300' : 'text-slate-700'}>{r.ubicacion || 'Sin asignar'}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`flex items-center gap-2 pt-2.5 border-t ${isDarkMode ? 'border-[#1b2e54]' : 'border-slate-200/80'}`}>
+                    <button
+                      onClick={() => handleOpenEdit(r)}
+                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl font-bold text-xs transition-colors ${
+                        isDarkMode
+                          ? 'bg-cyan-500/15 text-cyan-300 hover:bg-cyan-500/25'
+                          : 'bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200'
+                      }`}
+                    >
+                      <Edit3 className="w-3.5 h-3.5" />
+                      <span>Editar</span>
+                    </button>
+                    <button
+                      onClick={() => handleDelete(r.id)}
+                      className={`px-3.5 py-2 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-colors ${
+                        isDarkMode
+                          ? 'bg-red-500/15 text-red-400 hover:bg-red-500/25'
+                          : 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200'
+                      }`}
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>Eliminar</span>
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+
+        {/* Table (Desktop >= xl) */}
+        <div className="hidden xl:block overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className={`border-b text-[11px] font-bold uppercase tracking-wider ${
@@ -367,20 +467,20 @@ export default function RepuestosView({ isDarkMode }) {
 
       {/* Modal Agregar / Editar Repuesto */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-2xl bg-[#0b1426] border border-cyan-500/40 rounded-2xl shadow-2xl overflow-hidden p-6 text-white text-xs">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-700 mb-4">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Cpu className="w-5 h-5 text-cyan-400" />
-                <span>{editingRepuesto ? 'Editar Repuesto' : 'Registrar Nuevo Repuesto'}</span>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
+          <div className="w-full max-w-2xl bg-[#0b1426] border border-cyan-500/40 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] text-white text-xs my-auto">
+            <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-700 shrink-0">
+              <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2 min-w-0">
+                <Cpu className="w-5 h-5 text-cyan-400 shrink-0" />
+                <span className="truncate">{editingRepuesto ? 'Editar Repuesto' : 'Registrar Nuevo Repuesto'}</span>
               </h3>
-              <button onClick={() => setModalOpen(false)} className="text-slate-400 hover:text-white">
+              <button onClick={() => setModalOpen(false)} className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/10">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-slate-300 font-medium mb-1">Código Único *</label>
                   <input
@@ -418,7 +518,7 @@ export default function RepuestosView({ isDarkMode }) {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-slate-300 font-medium mb-1">Marca</label>
                   <input
@@ -441,7 +541,7 @@ export default function RepuestosView({ isDarkMode }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div>
                   <label className="block text-slate-300 font-medium mb-1">Stock Actual</label>
                   <input
@@ -484,7 +584,7 @@ export default function RepuestosView({ isDarkMode }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-slate-300 font-medium mb-1">Ubicación en el Taller</label>
                   <input
@@ -507,17 +607,17 @@ export default function RepuestosView({ isDarkMode }) {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-700 flex justify-end gap-2">
+              <div className="pt-3 border-t border-slate-700 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-slate-600 text-slate-300 font-semibold"
+                  className="w-full sm:w-auto px-4 py-2.5 sm:py-2 rounded-xl border border-slate-600 text-slate-300 font-semibold hover:bg-slate-800"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-bold text-white shadow-lg shadow-cyan-900/30"
+                  className="w-full sm:w-auto px-5 py-2.5 sm:py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-bold text-white shadow-lg shadow-cyan-900/30"
                 >
                   Guardar Repuesto
                 </button>

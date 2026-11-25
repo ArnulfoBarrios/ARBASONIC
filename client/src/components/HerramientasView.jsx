@@ -344,20 +344,20 @@ export default function HerramientasView({ isDarkMode }) {
   const disponiblesTools = herramientas.filter((h) => h.estado === 'Disponible');
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       {/* Toast inline feedback */}
       {feedback && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-[#00c6ff] text-slate-950 font-bold text-xs shadow-2xl flex items-center gap-2">
+        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-50 px-4 py-3 rounded-xl bg-[#00c6ff] text-slate-950 font-bold text-xs shadow-2xl flex items-center gap-2">
           <span>✓</span>
           <span>{feedback}</span>
         </div>
       )}
 
       {/* Top Header */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h2 className="text-xl font-black tracking-tight flex items-center gap-2">
-            <Wrench className="w-6 h-6 text-cyan-500" />
+          <h2 className="text-lg sm:text-xl font-black tracking-tight flex items-center gap-2">
+            <Wrench className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-500 shrink-0" />
             <span>Control de Herramientas y Préstamos</span>
           </h2>
           <p className={`text-xs mt-1 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -366,14 +366,14 @@ export default function HerramientasView({ isDarkMode }) {
         </div>
 
         {/* Action Buttons + Subtab Switcher */}
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2.5 w-full lg:w-auto">
           {/* Tab Switcher */}
-          <div className={`inline-flex rounded-xl p-1 border ${
+          <div className={`grid grid-cols-2 sm:inline-flex rounded-xl p-1 border ${
             isDarkMode ? 'bg-[#102245] border-[#1d3568]' : 'bg-slate-200/80 border-slate-300'
           }`}>
             <button
               onClick={() => setActiveSubTab('herramientas')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-center ${
                 activeSubTab === 'herramientas'
                   ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md'
                   : isDarkMode ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-600 hover:text-cyan-700'
@@ -383,7 +383,7 @@ export default function HerramientasView({ isDarkMode }) {
             </button>
             <button
               onClick={() => setActiveSubTab('prestamos')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                 activeSubTab === 'prestamos'
                   ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md'
                   : isDarkMode ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-600 hover:text-cyan-700'
@@ -396,72 +396,75 @@ export default function HerramientasView({ isDarkMode }) {
             </button>
           </div>
 
-          <button
-            onClick={() => handleOpenNewLoan()}
-            className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl border text-xs font-bold transition-all ${
-              isDarkMode
-                ? 'bg-[#112244] border-cyan-500/40 text-cyan-300 hover:bg-[#162d59]'
-                : 'bg-white border-cyan-300 text-cyan-700 hover:bg-cyan-50 shadow-sm'
-            }`}
-          >
-            <UserPlus className="w-4 h-4" />
-            <span>Nuevo Préstamo</span>
-          </button>
+          <div className="grid grid-cols-2 sm:flex items-center gap-2">
+            <button
+              onClick={() => handleOpenNewLoan()}
+              className={`flex items-center justify-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl border text-xs font-bold transition-all ${
+                isDarkMode
+                  ? 'bg-[#112244] border-cyan-500/40 text-cyan-300 hover:bg-[#162d59]'
+                  : 'bg-white border-cyan-300 text-cyan-700 hover:bg-cyan-50 shadow-sm'
+              }`}
+            >
+              <UserPlus className="w-4 h-4 shrink-0" />
+              <span className="truncate">Nuevo Préstamo</span>
+            </button>
 
-          <button
-            onClick={handleOpenAddTool}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:brightness-110 text-white font-bold text-xs shadow-md shadow-sky-500/25 transition-all"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Registrar Herramienta</span>
-          </button>
+            <button
+              onClick={handleOpenAddTool}
+              className="flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:brightness-110 text-white font-bold text-xs shadow-md shadow-sky-500/25 transition-all"
+            >
+              <Plus className="w-4 h-4 shrink-0" />
+              <span className="truncate">Registrar</span>
+              <span className="hidden sm:inline">Herramienta</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className={`p-4 rounded-2xl border ${isDarkMode ? 'bg-[#0d2a20] border-[#144735]' : 'bg-[#e8fbf3] border-emerald-200'}`}>
-          <div className="flex items-center justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+        <div className={`p-3.5 sm:p-4 rounded-2xl border ${isDarkMode ? 'bg-[#0d2a20] border-[#144735]' : 'bg-[#e8fbf3] border-emerald-200'}`}>
+          <div className="flex items-center justify-between gap-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-emerald-300' : 'text-emerald-700'}`}>Herramientas Disponibles</span>
-            <CheckCircle className="w-4 h-4 text-emerald-500" />
+            <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
           </div>
-          <h3 className={`text-2xl font-black mt-1 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{disponiblesTools.length}</h3>
+          <h3 className={`text-xl sm:text-2xl font-black mt-1 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{disponiblesTools.length}</h3>
         </div>
 
-        <div className={`p-4 rounded-2xl border ${isDarkMode ? 'bg-[#0b1c3d] border-cyan-500/30' : 'bg-[#e5f4fe] border-cyan-200'}`}>
-          <div className="flex items-center justify-between">
+        <div className={`p-3.5 sm:p-4 rounded-2xl border ${isDarkMode ? 'bg-[#0b1c3d] border-cyan-500/30' : 'bg-[#e5f4fe] border-cyan-200'}`}>
+          <div className="flex items-center justify-between gap-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>En Uso / Prestadas</span>
-            <Users className="w-4 h-4 text-cyan-500" />
+            <Users className="w-4 h-4 text-cyan-500 shrink-0" />
           </div>
-          <h3 className="text-2xl font-black mt-1">{enUsoCount}</h3>
+          <h3 className="text-xl sm:text-2xl font-black mt-1">{enUsoCount}</h3>
         </div>
 
-        <div className={`p-4 rounded-2xl border ${isDarkMode ? 'bg-[#2b1212] border-[#592222]' : 'bg-[#fee2e2] border-red-200'}`}>
-          <div className="flex items-center justify-between">
+        <div className={`p-3.5 sm:p-4 rounded-2xl border ${isDarkMode ? 'bg-[#2b1212] border-[#592222]' : 'bg-[#fee2e2] border-red-200'}`}>
+          <div className="flex items-center justify-between gap-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-red-300' : 'text-red-700'}`}>Préstamos con Retraso</span>
-            <ShieldAlert className="w-4 h-4 text-red-500" />
+            <ShieldAlert className="w-4 h-4 text-red-500 shrink-0" />
           </div>
-          <h3 className={`text-2xl font-black mt-1 ${isDarkMode ? 'text-red-400' : 'text-red-600'}`}>{retrasadosCount}</h3>
+          <h3 className={`text-xl sm:text-2xl font-black mt-1 ${isDarkMode ? 'text-red-400' : 'text-red-600'}`}>{retrasadosCount}</h3>
         </div>
       </div>
 
       {/* View 1: Inventario de Herramientas */}
       {activeSubTab === 'herramientas' && (
-        <div className={`rounded-2xl border p-5 shadow-sm ${cardBg}`}>
+        <div className={`rounded-2xl border p-3.5 sm:p-5 shadow-sm ${cardBg}`}>
           {/* Filters */}
-          <div className={`flex flex-wrap items-center gap-3 pb-4 border-b mb-4 ${isDarkMode ? 'border-[#182744]' : 'border-slate-100'}`}>
-            <div className="relative min-w-[200px] flex-1 sm:flex-initial">
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-center gap-2.5 sm:gap-3 pb-4 border-b mb-4 ${isDarkMode ? 'border-[#182744]' : 'border-slate-100'}`}>
+            <div className="relative w-full sm:col-span-2 lg:col-span-1 lg:w-64 lg:flex-1 lg:max-w-sm">
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Buscar por código, nombre o responsable..."
                 value={searchTools}
                 onChange={(e) => setSearchTools(e.target.value)}
-                className={`w-full rounded-xl pl-9 pr-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500 ${inputBg}`}
+                className={`w-full rounded-xl pl-9 pr-3 py-2 sm:py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500 ${inputBg}`}
               />
             </div>
 
-            <div className="min-w-[180px]">
+            <div className="w-full lg:w-48">
               <SearchableSelect
                 compact
                 isDarkMode={isDarkMode}
@@ -476,7 +479,7 @@ export default function HerramientasView({ isDarkMode }) {
               />
             </div>
 
-            <div className="min-w-[155px]">
+            <div className="w-full lg:w-44">
               <SearchableSelect
                 compact
                 isDarkMode={isDarkMode}
@@ -498,16 +501,110 @@ export default function HerramientasView({ isDarkMode }) {
                   setFilterEstado('Todos');
                 }}
                 title="Restablecer filtros"
-                className={`p-1.5 rounded-xl transition-colors ${
+                className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors sm:col-span-2 lg:col-span-1 ${
                   isDarkMode ? 'bg-slate-800 text-slate-300 hover:text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
-                <RotateCcw className="w-4 h-4" />
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span className="lg:hidden">Limpiar filtros</span>
               </button>
             )}
           </div>
 
-          <div className="overflow-x-auto">
+          {/* Vista Móvil y Tablet Herramientas (< xl) */}
+          <div className="xl:hidden grid grid-cols-1 md:grid-cols-2 gap-3">
+            {herramientas.length === 0 ? (
+              <div className="md:col-span-2 py-10 text-center text-xs text-slate-400">
+                No se encontraron herramientas con esos criterios.
+              </div>
+            ) : (
+              herramientas.map((h) => (
+                <div
+                  key={h.id}
+                  className={`rounded-xl border p-3.5 flex flex-col justify-between gap-2.5 ${
+                    isDarkMode ? 'bg-[#0f1c36] border-[#1c305a]' : 'bg-slate-50/70 border-slate-200/90'
+                  }`}
+                >
+                  <div className="space-y-2.5">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className={`font-mono font-bold text-xs ${isDarkMode ? 'text-cyan-400' : 'text-cyan-700'}`}>
+                        {h.codigo}
+                      </span>
+                      <span className={`inline-block whitespace-nowrap px-2.5 py-0.5 rounded-full text-[11px] font-bold ${getToolEstadoStyle(h.estado)}`}>
+                        {h.estado}
+                      </span>
+                    </div>
+
+                    <div>
+                      <h4 className={`font-bold text-sm leading-snug ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                        {h.nombre}
+                      </h4>
+                      <span className={`inline-block whitespace-nowrap mt-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${getToolCategoriaStyle()}`}>
+                        {h.categoria}
+                      </span>
+                    </div>
+
+                    <div className={`grid grid-cols-2 gap-2 pt-2 border-t text-[11px] ${isDarkMode ? 'border-[#1b2e54]' : 'border-slate-200/80'}`}>
+                      <div>
+                        <span className={`block text-[10px] ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Ubicación</span>
+                        <span className={isDarkMode ? 'text-slate-300' : 'text-slate-700'}>{h.ubicacion || 'Taller'}</span>
+                      </div>
+                      <div>
+                        <span className={`block text-[10px] ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Responsable</span>
+                        <span className={`font-medium ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>{h.responsable || 'Taller'}</span>
+                      </div>
+                      <div className="col-span-2">
+                        <span className={`text-[10px] ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Costo adquisición: </span>
+                        <span className={`font-mono font-semibold ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                          ${Number(h.costo_adquisicion || 0).toLocaleString('es-CO')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`flex items-center gap-2 pt-2.5 border-t ${isDarkMode ? 'border-[#1b2e54]' : 'border-slate-200/80'}`}>
+                    {h.estado === 'Disponible' && (
+                      <button
+                        onClick={() => handleOpenNewLoan(h)}
+                        className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl font-bold text-xs transition-colors ${
+                          isDarkMode
+                            ? 'bg-emerald-500/15 text-emerald-300 hover:bg-emerald-500/25'
+                            : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200'
+                        }`}
+                      >
+                        <UserPlus className="w-3.5 h-3.5" />
+                        <span>Prestar</span>
+                      </button>
+                    )}
+                    <button
+                      onClick={() => handleOpenEditTool(h)}
+                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl font-bold text-xs transition-colors ${
+                        isDarkMode
+                          ? 'bg-cyan-500/15 text-cyan-300 hover:bg-cyan-500/25'
+                          : 'bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200'
+                      }`}
+                    >
+                      <Edit3 className="w-3.5 h-3.5" />
+                      <span>Editar</span>
+                    </button>
+                    <button
+                      onClick={() => handleDeleteTool(h)}
+                      aria-label="Eliminar herramienta"
+                      className={`px-3 py-2 rounded-xl font-bold text-xs flex items-center justify-center transition-colors ${
+                        isDarkMode
+                          ? 'bg-red-500/15 text-red-400 hover:bg-red-500/25'
+                          : 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200'
+                      }`}
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          <div className="hidden xl:block overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className={`border-b text-[11px] font-bold uppercase tracking-wider ${tableHeaderBg}`}>
@@ -598,21 +695,21 @@ export default function HerramientasView({ isDarkMode }) {
 
       {/* View 2: Préstamos a Empleados */}
       {activeSubTab === 'prestamos' && (
-        <div className={`rounded-2xl border p-5 shadow-sm ${cardBg}`}>
+        <div className={`rounded-2xl border p-3.5 sm:p-5 shadow-sm ${cardBg}`}>
           {/* Filters */}
-          <div className={`flex flex-wrap items-center gap-3 pb-4 border-b mb-4 ${isDarkMode ? 'border-[#182744]' : 'border-slate-100'}`}>
-            <div className="relative min-w-[200px] flex-1 sm:flex-initial">
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-center gap-2.5 sm:gap-3 pb-4 border-b mb-4 ${isDarkMode ? 'border-[#182744]' : 'border-slate-100'}`}>
+            <div className="relative w-full lg:w-64 lg:flex-1 lg:max-w-sm">
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Buscar por ID, herramienta o persona..."
                 value={searchPrestamos}
                 onChange={(e) => setSearchPrestamos(e.target.value)}
-                className={`w-full rounded-xl pl-9 pr-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500 ${inputBg}`}
+                className={`w-full rounded-xl pl-9 pr-3 py-2 sm:py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500 ${inputBg}`}
               />
             </div>
 
-            <div className="min-w-[155px]">
+            <div className="w-full lg:w-44">
               <SearchableSelect
                 compact
                 isDarkMode={isDarkMode}
@@ -626,7 +723,101 @@ export default function HerramientasView({ isDarkMode }) {
             </div>
           </div>
 
-          <div className="overflow-x-auto">
+          {/* Vista Móvil y Tablet Préstamos (< xl) */}
+          <div className="xl:hidden grid grid-cols-1 md:grid-cols-2 gap-3">
+            {prestamos.length === 0 ? (
+              <div className="md:col-span-2 py-10 text-center text-xs text-slate-400">
+                No hay préstamos registrados con esos filtros.
+              </div>
+            ) : (
+              prestamos.map((p) => {
+                const isReturned = p.estado_prestamo === 'Devuelto';
+                const isLate = p.estado_prestamo === 'Retrasado';
+                return (
+                  <div
+                    key={p.id}
+                    className={`rounded-xl border p-3.5 flex flex-col justify-between gap-2.5 ${
+                      isDarkMode ? 'bg-[#0f1c36] border-[#1c305a]' : 'bg-slate-50/70 border-slate-200/90'
+                    }`}
+                  >
+                    <div className="space-y-2.5">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2 font-mono text-xs font-bold">
+                          <span className="text-slate-400">{p.codigo_prestamo}</span>
+                          <span className={isDarkMode ? 'text-cyan-400' : 'text-cyan-700'}>{p.herramienta_codigo}</span>
+                        </div>
+                        {isReturned ? (
+                          <span className={`inline-block whitespace-nowrap px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+                            isDarkMode
+                              ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                              : 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                          }`}>
+                            Devuelto
+                          </span>
+                        ) : isLate ? (
+                          <span className={`inline-block whitespace-nowrap px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+                            isDarkMode
+                              ? 'bg-red-500/20 text-red-300 border border-red-500/30'
+                              : 'bg-red-100 text-red-700 border border-red-200'
+                          }`}>
+                            Retrasado ({p.dias_retraso}d)
+                          </span>
+                        ) : (
+                          <span className={`inline-block whitespace-nowrap px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+                            isDarkMode
+                              ? 'bg-blue-500/15 text-blue-300 border border-blue-500/30'
+                              : 'bg-blue-100 text-blue-700 border border-blue-200'
+                          }`}>
+                            En curso
+                          </span>
+                        )}
+                      </div>
+
+                      <h4 className={`font-bold text-sm leading-snug ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                        {p.herramienta_nombre}
+                      </h4>
+
+                      <div className={`grid grid-cols-2 gap-2 pt-2 border-t text-[11px] ${isDarkMode ? 'border-[#1b2e54]' : 'border-slate-200/80'}`}>
+                        <div>
+                          <span className={`block text-[10px] ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Recibe</span>
+                          <span className={`font-semibold ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>{p.persona_recibe}</span>
+                        </div>
+                        <div>
+                          <span className={`block text-[10px] ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Área / Depto</span>
+                          <span className={isDarkMode ? 'text-slate-300' : 'text-slate-700'}>{p.departamento}</span>
+                        </div>
+                        <div>
+                          <span className={`block text-[10px] ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Préstamo</span>
+                          <span className="font-mono">{p.fecha_prestamo}</span>
+                        </div>
+                        <div>
+                          <span className={`block text-[10px] ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Devolución Prev.</span>
+                          <span className="font-mono">{p.devolucion_prevista}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {!isReturned && (
+                      <div className={`pt-2.5 border-t ${isDarkMode ? 'border-[#1b2e54]' : 'border-slate-200/80'}`}>
+                        <button
+                          onClick={() => handleDevolver(p.id)}
+                          className={`w-full py-2 rounded-xl font-bold text-xs transition-colors ${
+                            isDarkMode
+                              ? 'bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30'
+                              : 'bg-emerald-100 hover:bg-emerald-200 text-emerald-700 border border-emerald-200'
+                          }`}
+                        >
+                          Recibir en Taller
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          <div className="hidden xl:block overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className={`border-b text-[11px] font-bold uppercase tracking-wider ${tableHeaderBg}`}>
@@ -716,265 +907,269 @@ export default function HerramientasView({ isDarkMode }) {
 
       {/* Modal: Registrar / Editar Herramienta */}
       {toolModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
-          <div className="w-full max-w-xl bg-[#0b1426] border border-cyan-500/40 rounded-2xl shadow-2xl overflow-hidden p-6 text-white text-xs">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-700 mb-4">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Wrench className="w-5 h-5 text-cyan-400" />
-                <span>{editingTool ? `Editar Herramienta ${editingTool.codigo}` : 'Registrar Nueva Herramienta'}</span>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
+          <div className="w-full max-w-xl bg-[#0b1426] border border-cyan-500/40 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] text-white text-xs my-auto">
+            <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-700 shrink-0">
+              <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2 min-w-0">
+                <Wrench className="w-5 h-5 text-cyan-400 shrink-0" />
+                <span className="truncate">{editingTool ? `Editar Herramienta ${editingTool.codigo}` : 'Registrar Nueva Herramienta'}</span>
               </h3>
-              <button onClick={() => setToolModalOpen(false)} className="text-slate-400 hover:text-white">
+              <button onClick={() => setToolModalOpen(false)} className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/10">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {toolError && (
-              <div className="mb-4 flex items-center gap-2 p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300">
-                <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
-                <span>{toolError}</span>
-              </div>
-            )}
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1">
+              {toolError && (
+                <div className="mb-4 flex items-center gap-2 p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                  <span>{toolError}</span>
+                </div>
+              )}
 
-            <form onSubmit={handleSaveTool} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <form onSubmit={handleSaveTool} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1">Código Único *</label>
+                    <input
+                      type="text"
+                      required
+                      value={toolForm.codigo}
+                      onChange={(e) => setToolForm({ ...toolForm, codigo: e.target.value })}
+                      placeholder="Ej. HT-0011"
+                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white font-mono focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1">Categoría *</label>
+                    <select
+                      value={toolForm.categoria}
+                      onChange={(e) => setToolForm({ ...toolForm, categoria: e.target.value })}
+                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                    >
+                      {CATEGORIAS_HERRAMIENTA.map((c) => (
+                        <option key={c} value={c} className="bg-[#0b1426]">{c}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">Código Único *</label>
+                  <label className="block text-slate-300 font-medium mb-1">Nombre de la Herramienta *</label>
                   <input
                     type="text"
                     required
-                    value={toolForm.codigo}
-                    onChange={(e) => setToolForm({ ...toolForm, codigo: e.target.value })}
-                    placeholder="Ej. HT-0011"
-                    className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white font-mono focus:outline-none"
+                    value={toolForm.nombre}
+                    onChange={(e) => setToolForm({ ...toolForm, nombre: e.target.value })}
+                    placeholder="Ej. Cautín de Estación Digital 60W"
+                    className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1">Categoría *</label>
-                  <select
-                    value={toolForm.categoria}
-                    onChange={(e) => setToolForm({ ...toolForm, categoria: e.target.value })}
-                    className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1">Ubicación en Taller</label>
+                    <input
+                      type="text"
+                      value={toolForm.ubicacion}
+                      onChange={(e) => setToolForm({ ...toolForm, ubicacion: e.target.value })}
+                      placeholder="Ej. Banco Diagnóstico A"
+                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1">Responsable Actual</label>
+                    <input
+                      type="text"
+                      value={toolForm.responsable}
+                      onChange={(e) => setToolForm({ ...toolForm, responsable: e.target.value })}
+                      placeholder="Ej. Taller / Arnulfo Barrios"
+                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1">Estado</label>
+                    <select
+                      value={toolForm.estado}
+                      onChange={(e) => setToolForm({ ...toolForm, estado: e.target.value })}
+                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                    >
+                      {ESTADOS_HERRAMIENTA.map((st) => (
+                        <option key={st} value={st} className="bg-[#0b1426]">{st}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1">Costo de Adquisición ($ COP)</label>
+                    <input
+                      type="number"
+                      min="0"
+                      step="1000"
+                      value={toolForm.costo_adquisicion}
+                      onChange={(e) => setToolForm({ ...toolForm, costo_adquisicion: e.target.value })}
+                      placeholder="Ej. 180000"
+                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white font-mono focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-slate-700 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setToolModalOpen(false)}
+                    className="w-full sm:w-auto px-4 py-2.5 sm:py-2 rounded-xl border border-slate-600 text-slate-300 font-semibold hover:bg-slate-800"
                   >
-                    {CATEGORIAS_HERRAMIENTA.map((c) => (
-                      <option key={c} value={c} className="bg-[#0b1426]">{c}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-medium mb-1">Nombre de la Herramienta *</label>
-                <input
-                  type="text"
-                  required
-                  value={toolForm.nombre}
-                  onChange={(e) => setToolForm({ ...toolForm, nombre: e.target.value })}
-                  placeholder="Ej. Cautín de Estación Digital 60W"
-                  className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1">Ubicación en Taller</label>
-                  <input
-                    type="text"
-                    value={toolForm.ubicacion}
-                    onChange={(e) => setToolForm({ ...toolForm, ubicacion: e.target.value })}
-                    placeholder="Ej. Banco Diagnóstico A"
-                    className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1">Responsable Actual</label>
-                  <input
-                    type="text"
-                    value={toolForm.responsable}
-                    onChange={(e) => setToolForm({ ...toolForm, responsable: e.target.value })}
-                    placeholder="Ej. Taller / Arnulfo Barrios"
-                    className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1">Estado</label>
-                  <select
-                    value={toolForm.estado}
-                    onChange={(e) => setToolForm({ ...toolForm, estado: e.target.value })}
-                    className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={savingTool}
+                    className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-5 py-2.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] font-bold text-white shadow-lg shadow-cyan-900/30 disabled:opacity-50"
                   >
-                    {ESTADOS_HERRAMIENTA.map((st) => (
-                      <option key={st} value={st} className="bg-[#0b1426]">{st}</option>
-                    ))}
-                  </select>
+                    <Save className="w-4 h-4" />
+                    <span>{savingTool ? 'Guardando...' : editingTool ? 'Guardar Cambios' : 'Guardar Herramienta'}</span>
+                  </button>
                 </div>
-
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1">Costo de Adquisición ($ COP)</label>
-                  <input
-                    type="number"
-                    min="0"
-                    step="1000"
-                    value={toolForm.costo_adquisicion}
-                    onChange={(e) => setToolForm({ ...toolForm, costo_adquisicion: e.target.value })}
-                    placeholder="Ej. 180000"
-                    className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white font-mono focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="pt-3 border-t border-slate-700 flex justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={() => setToolModalOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-slate-600 text-slate-300 font-semibold hover:bg-slate-800"
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  disabled={savingTool}
-                  className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] font-bold text-white shadow-lg shadow-cyan-900/30 disabled:opacity-50"
-                >
-                  <Save className="w-4 h-4" />
-                  <span>{savingTool ? 'Guardando...' : editingTool ? 'Guardar Cambios' : 'Guardar Herramienta'}</span>
-                </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       )}
 
       {/* Modal: Nuevo Préstamo */}
       {loanModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
-          <div className="w-full max-w-lg bg-[#0b1426] border border-cyan-500/40 rounded-2xl shadow-2xl overflow-hidden p-6 text-white text-xs">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-700 mb-4">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <UserPlus className="w-5 h-5 text-cyan-400" />
-                <span>Registrar Préstamo de Herramienta</span>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
+          <div className="w-full max-w-lg bg-[#0b1426] border border-cyan-500/40 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] text-white text-xs my-auto">
+            <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-700 shrink-0">
+              <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2 min-w-0">
+                <UserPlus className="w-5 h-5 text-cyan-400 shrink-0" />
+                <span className="truncate">Registrar Préstamo de Herramienta</span>
               </h3>
-              <button onClick={() => setLoanModalOpen(false)} className="text-slate-400 hover:text-white">
+              <button onClick={() => setLoanModalOpen(false)} className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/10">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {loanError && (
-              <div className="mb-4 flex items-center gap-2 p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300">
-                <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
-                <span>{loanError}</span>
-              </div>
-            )}
-
-            {disponiblesTools.length === 0 ? (
-              <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-center space-y-3">
-                <p>No hay herramientas con estado <strong>Disponible</strong> en este momento.</p>
-                <button
-                  onClick={() => setLoanModalOpen(false)}
-                  className="px-4 py-1.5 rounded-lg bg-slate-700 text-white font-semibold"
-                >
-                  Entendido
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSaveLoan} className="space-y-4">
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1">Herramienta Disponible *</label>
-                  <select
-                    required
-                    value={loanForm.herramienta_id}
-                    onChange={(e) => setLoanForm({ ...loanForm, herramienta_id: Number(e.target.value) })}
-                    className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
-                  >
-                    {disponiblesTools.map((t) => (
-                      <option key={t.id} value={t.id} className="bg-[#0b1426]">
-                        {t.codigo} — {t.nombre}
-                      </option>
-                    ))}
-                  </select>
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1">
+              {loanError && (
+                <div className="mb-4 flex items-center gap-2 p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                  <span>{loanError}</span>
                 </div>
+              )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-slate-300 font-medium mb-1">Persona que Recibe *</label>
-                    <input
-                      type="text"
-                      required
-                      value={loanForm.persona_recibe}
-                      onChange={(e) => setLoanForm({ ...loanForm, persona_recibe: e.target.value })}
-                      placeholder="Ej. Carlos Ruiz"
-                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-slate-300 font-medium mb-1">Departamento / Área</label>
-                    <input
-                      type="text"
-                      value={loanForm.departamento}
-                      onChange={(e) => setLoanForm({ ...loanForm, departamento: e.target.value })}
-                      placeholder="Ej. Taller"
-                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-slate-300 font-medium mb-1">Fecha de Préstamo *</label>
-                    <input
-                      type="date"
-                      required
-                      value={loanForm.fecha_prestamo}
-                      onChange={(e) => setLoanForm({ ...loanForm, fecha_prestamo: e.target.value })}
-                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-slate-300 font-medium mb-1">Devolución Prevista *</label>
-                    <input
-                      type="date"
-                      required
-                      value={loanForm.devolucion_prevista}
-                      onChange={(e) => setLoanForm({ ...loanForm, devolucion_prevista: e.target.value })}
-                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1">Observaciones</label>
-                  <input
-                    type="text"
-                    value={loanForm.observaciones}
-                    onChange={(e) => setLoanForm({ ...loanForm, observaciones: e.target.value })}
-                    placeholder="Motivo del préstamo o servicio asignado"
-                    className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
-                  />
-                </div>
-
-                <div className="pt-3 border-t border-slate-700 flex justify-end gap-2">
+              {disponiblesTools.length === 0 ? (
+                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-center space-y-3">
+                  <p>No hay herramientas con estado <strong>Disponible</strong> en este momento.</p>
                   <button
-                    type="button"
                     onClick={() => setLoanModalOpen(false)}
-                    className="px-4 py-2 rounded-xl border border-slate-600 text-slate-300 font-semibold hover:bg-slate-800"
+                    className="px-4 py-1.5 rounded-lg bg-slate-700 text-white font-semibold"
                   >
-                    Cancelar
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={savingLoan}
-                    className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] font-bold text-white shadow-lg shadow-cyan-900/30 disabled:opacity-50"
-                  >
-                    <Save className="w-4 h-4" />
-                    <span>{savingLoan ? 'Registrando...' : 'Registrar Préstamo'}</span>
+                    Entendido
                   </button>
                 </div>
-              </form>
-            )}
+              ) : (
+                <form onSubmit={handleSaveLoan} className="space-y-4">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1">Herramienta Disponible *</label>
+                    <select
+                      required
+                      value={loanForm.herramienta_id}
+                      onChange={(e) => setLoanForm({ ...loanForm, herramienta_id: Number(e.target.value) })}
+                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                    >
+                      {disponiblesTools.map((t) => (
+                        <option key={t.id} value={t.id} className="bg-[#0b1426]">
+                          {t.codigo} — {t.nombre}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-slate-300 font-medium mb-1">Persona que Recibe *</label>
+                      <input
+                        type="text"
+                        required
+                        value={loanForm.persona_recibe}
+                        onChange={(e) => setLoanForm({ ...loanForm, persona_recibe: e.target.value })}
+                        placeholder="Ej. Carlos Ruiz"
+                        className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-slate-300 font-medium mb-1">Departamento / Área</label>
+                      <input
+                        type="text"
+                        value={loanForm.departamento}
+                        onChange={(e) => setLoanForm({ ...loanForm, departamento: e.target.value })}
+                        placeholder="Ej. Taller"
+                        className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-slate-300 font-medium mb-1">Fecha de Préstamo *</label>
+                      <input
+                        type="date"
+                        required
+                        value={loanForm.fecha_prestamo}
+                        onChange={(e) => setLoanForm({ ...loanForm, fecha_prestamo: e.target.value })}
+                        className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-slate-300 font-medium mb-1">Devolución Prevista *</label>
+                      <input
+                        type="date"
+                        required
+                        value={loanForm.devolucion_prevista}
+                        onChange={(e) => setLoanForm({ ...loanForm, devolucion_prevista: e.target.value })}
+                        className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1">Observaciones</label>
+                    <input
+                      type="text"
+                      value={loanForm.observaciones}
+                      onChange={(e) => setLoanForm({ ...loanForm, observaciones: e.target.value })}
+                      placeholder="Motivo del préstamo o servicio asignado"
+                      className="w-full bg-[#132240] border border-[#233a66] focus:border-cyan-400 rounded-xl px-3 py-2 text-white focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-700 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setLoanModalOpen(false)}
+                      className="w-full sm:w-auto px-4 py-2.5 sm:py-2 rounded-xl border border-slate-600 text-slate-300 font-semibold hover:bg-slate-800"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={savingLoan}
+                      className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-5 py-2.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] font-bold text-white shadow-lg shadow-cyan-900/30 disabled:opacity-50"
+                    >
+                      <Save className="w-4 h-4" />
+                      <span>{savingLoan ? 'Registrando...' : 'Registrar Préstamo'}</span>
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       )}

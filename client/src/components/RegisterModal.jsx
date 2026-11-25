@@ -272,34 +272,34 @@ export default function RegisterModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-[#0b1426] border border-cyan-500/40 rounded-2xl shadow-2xl overflow-hidden my-8 max-h-[92vh] flex flex-col tech-glow-blue animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
+      <div className="relative w-full max-w-4xl bg-[#0b1426] border border-cyan-500/40 rounded-2xl shadow-2xl overflow-hidden my-2 sm:my-8 max-h-[94vh] flex flex-col tech-glow-blue animate-in fade-in zoom-in-95 duration-150">
         
         {/* Modal Header */}
-        <div className="p-5 border-b border-[#1b2b4d] bg-gradient-to-r from-[#0d1a33] via-[#0e2142] to-[#0d1a33] flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
+        <div className="p-3.5 sm:p-5 border-b border-[#1b2b4d] bg-gradient-to-r from-[#0d1a33] via-[#0e2142] to-[#0d1a33] flex items-center justify-between gap-2 shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 shrink-0">
               {isEditing ? <Edit3 className="w-5 h-5" /> : <PlusCircle className="w-5 h-5" />}
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-white tracking-wide">
-                {isEditing ? `Modificar Orden #${equipoToEdit.id}` : 'Registrar Orden de Servicio y Ficha Técnica'}
+            <div className="min-w-0">
+              <h3 className="text-sm sm:text-lg font-bold text-white tracking-wide leading-tight truncate">
+                {isEditing ? `Modificar Orden #${equipoToEdit.id}` : 'Registrar Orden de Servicio'}
               </h3>
-              <p className="text-xs text-cyan-400 font-medium">
+              <p className="text-[11px] sm:text-xs text-cyan-400 font-medium truncate">
                 ARBASONIC Reparación Electrónica
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Modal Scrollable Form */}
-        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
+        <form onSubmit={handleSubmit} className="p-3.5 sm:p-6 overflow-y-auto space-y-4 sm:space-y-6 flex-1 text-xs">
           {errorMsg && (
             <div className="flex items-center gap-2 p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300">
               <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
@@ -308,21 +308,21 @@ export default function RegisterModal({
           )}
 
           {/* 1. Datos del Cliente */}
-          <div className="p-4 rounded-xl bg-[#0f1d38]/70 border border-[#1b2f57]">
-            <div className="flex items-center justify-between mb-3 border-b border-[#1b2f57] pb-2">
-              <div className="flex items-center gap-2 text-cyan-300 font-bold text-sm">
-                <User className="w-4 h-4" />
+          <div className="p-3.5 sm:p-4 rounded-xl bg-[#0f1d38]/70 border border-[#1b2f57]">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3 border-b border-[#1b2f57] pb-2">
+              <div className="flex items-center gap-2 text-cyan-300 font-bold text-xs sm:text-sm">
+                <User className="w-4 h-4 shrink-0" />
                 <span>1. Datos del Cliente</span>
               </div>
               {clientFoundBadge && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                   <Check className="w-3 h-3" />
-                  Cliente registrado en sistema
+                  Cliente registrado
                 </span>
               )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-slate-300 font-medium mb-1.5">
                   Cédula / Documento de Identidad <span className="text-cyan-400">*</span>
@@ -387,13 +387,13 @@ export default function RegisterModal({
           </div>
 
           {/* 2. Datos del Dispositivo */}
-          <div className="p-4 rounded-xl bg-[#0f1d38]/70 border border-[#1b2f57]">
-            <div className="flex items-center gap-2 text-cyan-300 font-bold text-sm mb-3 border-b border-[#1b2f57] pb-2">
-              <Tv className="w-4 h-4" />
+          <div className="p-3.5 sm:p-4 rounded-xl bg-[#0f1d38]/70 border border-[#1b2f57]">
+            <div className="flex items-center gap-2 text-cyan-300 font-bold text-xs sm:text-sm mb-3 border-b border-[#1b2f57] pb-2">
+              <Tv className="w-4 h-4 shrink-0" />
               <span>2. Datos del Dispositivo y Recepción</span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {/* Tipo */}
               <div>
                 <label className="block text-slate-300 font-medium mb-1.5">
@@ -619,16 +619,16 @@ export default function RegisterModal({
           </div>
 
           {/* 3. Diagnóstico Técnico Especializado de Tarjetas Electrónicas */}
-          <div className="p-4 rounded-xl bg-[#0f1d38]/70 border border-cyan-500/30">
-            <div className="flex items-center justify-between mb-3 border-b border-[#1b2f57] pb-2">
-              <div className="flex items-center gap-2 text-cyan-300 font-bold text-sm">
-                <Cpu className="w-4 h-4 text-cyan-400" />
-                <span>3. Diagnóstico Técnico de Tarjetas Electrónicas</span>
+          <div className="p-3.5 sm:p-4 rounded-xl bg-[#0f1d38]/70 border border-cyan-500/30">
+            <div className="flex flex-wrap items-center justify-between gap-1.5 mb-3 border-b border-[#1b2f57] pb-2">
+              <div className="flex items-center gap-2 text-cyan-300 font-bold text-xs sm:text-sm">
+                <Cpu className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span>3. Diagnóstico de Tarjetas Electrónicas</span>
               </div>
               <span className="text-[11px] text-slate-400">TV & Audio Profesional</span>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               {/* Main */}
               <div>
                 <label className="block text-slate-300 font-medium mb-1.5">Tarjeta Main</label>
@@ -697,7 +697,7 @@ export default function RegisterModal({
             </div>
 
             {/* Trabajo Realizado y Repuestos Usados */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mt-3.5 sm:mt-4">
               <div>
                 <label className="block text-slate-300 font-medium mb-1.5">Trabajo Realizado</label>
                 <textarea
@@ -723,13 +723,13 @@ export default function RegisterModal({
           </div>
 
           {/* 4. Estado del Servicio y Costos */}
-          <div className="p-4 rounded-xl bg-[#0f1d38]/70 border border-[#1b2f57]">
-            <div className="flex items-center gap-2 text-cyan-300 font-bold text-sm mb-3 border-b border-[#1b2f57] pb-2">
-              <Wrench className="w-4 h-4" />
+          <div className="p-3.5 sm:p-4 rounded-xl bg-[#0f1d38]/70 border border-[#1b2f57]">
+            <div className="flex items-center gap-2 text-cyan-300 font-bold text-xs sm:text-sm mb-3 border-b border-[#1b2f57] pb-2">
+              <Wrench className="w-4 h-4 shrink-0" />
               <span>4. Estado del Servicio y Costos</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               <div>
                 <label className="block text-slate-300 font-medium mb-1.5">Estado de la Orden</label>
                 <select
@@ -783,18 +783,18 @@ export default function RegisterModal({
           </div>
 
           {/* Modal Footer Buttons */}
-          <div className="pt-3 border-t border-[#1b2b4d] flex items-center justify-end gap-3">
+          <div className="pt-3 border-t border-[#1b2b4d] flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-300 font-semibold text-xs"
+              className="px-5 py-2.5 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-300 font-semibold text-xs text-center"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:brightness-110 text-white font-bold text-xs shadow-lg shadow-sky-500/25 disabled:opacity-50"
+              className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:brightness-110 text-white font-bold text-xs shadow-lg shadow-sky-500/25 disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
               <span>{submitting ? 'Guardando en Base de Datos...' : isEditing ? 'Guardar Cambios' : 'Registrar Orden'}</span>

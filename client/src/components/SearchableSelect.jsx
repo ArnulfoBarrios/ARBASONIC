@@ -127,7 +127,7 @@ export default function SearchableSelect({
 
       {/* Panel desplegable compacto */}
       {open && (
-        <div className={`absolute left-0 right-0 min-w-[190px] mt-1.5 z-50 border rounded-xl overflow-hidden ${panelClass}`}>
+        <div className={`absolute left-0 right-0 sm:min-w-[190px] mt-1.5 z-50 border rounded-xl overflow-hidden ${panelClass}`}>
           {/* Buscador fijo arriba */}
           {searchable && (
             <div className={`p-2 border-b ${searchBarClass}`}>

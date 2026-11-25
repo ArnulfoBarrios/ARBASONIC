@@ -3,7 +3,7 @@ import { Laptop, Smartphone, Headphones, Wrench, Cpu } from 'lucide-react';
 
 export default function WelcomeBanner() {
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#031538] via-[#082860] to-[#041b45] border border-cyan-500/40 p-6 md:p-8 shadow-xl tech-glow-blue mb-6">
+    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#031538] via-[#082860] to-[#041b45] border border-cyan-500/40 p-5 sm:p-6 md:p-8 shadow-xl tech-glow-blue mb-5 sm:mb-6">
       
       {/* Background Circuit PCB Graphic Traces (Exact to Image 1) */}
       <svg 
@@ -36,16 +36,16 @@ export default function WelcomeBanner() {
       <div className="absolute -top-12 -left-12 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-12 right-24 w-56 h-56 bg-blue-500/25 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+      <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 sm:gap-6">
         <div>
-          <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight">
             Bienvenido a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d2ff] via-[#38bdf8] to-[#60a5fa]">ARBASONIC</span>
           </h2>
-          <p className="text-slate-200 text-sm md:text-base mt-2 font-medium max-w-xl">
+          <p className="text-slate-200 text-xs sm:text-sm md:text-base mt-1.5 sm:mt-2 font-medium max-w-xl">
             Controla, gestiona y da seguimiento a tus equipos electrónicos
           </p>
 
-          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-transparent rounded-full mt-4" />
+          <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-cyan-400 to-transparent rounded-full mt-3 sm:mt-4" />
         </div>
 
         {/* 3D Devices Tech Graphic Composition on Right (Exact to Image 1) */}

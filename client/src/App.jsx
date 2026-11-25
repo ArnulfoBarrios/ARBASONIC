@@ -46,7 +46,8 @@ export default function App() {
   const [catalogos, setCatalogos] = useState({ marcas: [], tipos: [], accesorios: [], danos: [] });
   const [loading, setLoading] = useState(true);
 
-  // Modal States
+  // Modal & Drawer States
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
   const [selectedEquipoForEdit, setSelectedEquipoForEdit] = useState(null);
   const [selectedEquipoForView, setSelectedEquipoForView] = useState(null);
@@ -217,16 +218,18 @@ export default function App() {
     }`}>
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-[#00c6ff] text-slate-950 font-bold text-xs shadow-2xl backdrop-blur-md flex items-center gap-2 animate-in slide-in-from-bottom-5">
+        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:bottom-6 sm:right-6 z-50 px-4 py-3 rounded-xl bg-[#00c6ff] text-slate-950 font-bold text-xs shadow-2xl backdrop-blur-md flex items-center justify-center sm:justify-start gap-2 animate-in slide-in-from-bottom-5">
           <span>✓</span>
           <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* 1. Sidebar */}
+      {/* 1. Sidebar (Drawer en móvil/tablet, fijo en desktop) */}
       <Sidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        mobileOpen={mobileMenuOpen}
+        onCloseMobile={() => setMobileMenuOpen(false)}
         onOpenRegister={() => {
           setSelectedEquipoForEdit(null);
           setRegisterModalOpen(true);
@@ -234,19 +237,20 @@ export default function App() {
       />
 
       {/* Main Layout Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* 2. Top Navbar */}
         <Navbar
           activeTab={activeTab}
           notifications={notifications}
           onNotificationClick={handleNotificationClick}
           onGoToReports={() => setActiveTab('reportes')}
+          onOpenMobileMenu={() => setMobileMenuOpen(true)}
           isDarkMode={isDarkMode}
           onToggleTheme={toggleTheme}
         />
 
         {/* 3. Main Views Container */}
-        <main className="p-6 md:p-8 flex-1 max-w-[1600px] w-full mx-auto">
+        <main className="p-3.5 sm:p-6 md:p-8 flex-1 max-w-[1600px] w-full mx-auto">
           
           {/* TAB: INICIO (Dashboard Principal) */}
           {activeTab === 'inicio' && (
@@ -311,10 +315,10 @@ export default function App() {
 
           {/* TAB: INVENTARIO / ÓRDENES DE SERVICIO */}
           {activeTab === 'inventario' && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <div>
-                  <h2 className="text-xl font-black tracking-tight">Órdenes de Servicio y Recepción</h2>
+                  <h2 className="text-lg sm:text-xl font-black tracking-tight">Órdenes de Servicio y Recepción</h2>
                   <p className={`text-xs mt-1 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                     Control detallado y filtrado por todos los parámetros de los aparatos ingresados al taller.
                   </p>
@@ -324,7 +328,7 @@ export default function App() {
                     setSelectedEquipoForEdit(null);
                     setRegisterModalOpen(true);
                   }}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] text-white font-bold text-xs shadow-md"
+                  className="w-full sm:w-auto px-4 py-2.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#00c6ff] to-[#0072ff] text-white font-bold text-xs shadow-md"
                 >
                   + Nueva Orden de Servicio
                 </button>
